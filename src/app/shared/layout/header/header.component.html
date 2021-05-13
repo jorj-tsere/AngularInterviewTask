@@ -1,27 +1,10 @@
-<!-- <p-toolbar>
+<p-toolbar [style]="{'background':'#536DFE'}">
   <div class="p-toolbar-group-left">
-      <p-button label="New" icon="pi pi-plus"></p-button>
-      <p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"></p-button>
-
-      <i class="pi pi-bars"></i>
-
-      <p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="p-button-warning"></p-splitButton>
+    <p-button label="LOGO" icon="pi pi-google"></p-button>
   </div>
 
   <div class="p-toolbar-group-right">
-      <p-button icon="pi pi-search"></p-button>
-      <p-button icon="pi pi-calendar" styleClass="p-button-success"></p-button>
-      <p-button icon="pi pi-times" styleClass="p-button-danger"></p-button>
+    <p-menu #menu [popup]="true" [model]="items"></p-menu>
+    <p-avatar [style]="{'cursor':'pointer'}" size="large" shape="circle" icon="pi pi-user" (click)="menu.toggle($event)"></p-avatar>
   </div>
-</p-toolbar> -->
-<p-menubar [model]="items">
-  <div>
-    asdasd
-  </div>
-  <!-- <ng-template pTemplate="start">
-      <img src="https://i0.wp.com/primefaces.org/wp-content/uploads/2016/10/primeng.png?resize=250%2C250" height="40" class="p-mr-2">
-  </ng-template>
-  <ng-template pTemplate="end">
-      <input type="text" pInputText placeholder="Search">
-  </ng-template> -->
-</p-menubar>
+</p-toolbar>

@@ -1,8 +1,10 @@
 <app-header></app-header>
-<div class="layout">
-  <app-sidebar></app-sidebar>
-  <div class="layout--content">
+<div class="layout p-grid p-nogutter">
+  <app-sidebar
+    class="layout--sidebar p-col-fixed"
+    style="width: 250px"
+  ></app-sidebar>
+  <div class="layout--content p-col">
     <ng-content></ng-content>
   </div>
 </div>
-<app-footer></app-footer>

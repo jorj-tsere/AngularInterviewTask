@@ -15,6 +15,10 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { MenubarModule } from 'primeng/menubar';
+import { MenuModule } from 'primeng/menu';
+import { ToastModule } from 'primeng/toast';
+import {MegaMenuModule} from 'primeng/megamenu';
+import {AvatarModule} from 'primeng/avatar';
 
 @NgModule({
   declarations: [
@@ -34,6 +38,10 @@ import { MenubarModule } from 'primeng/menubar';
     ToolbarModule,
     ButtonModule,
     SplitButtonModule,
+    MenuModule,
+    ToastModule,
+    MegaMenuModule,
+    AvatarModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -45,6 +53,10 @@ import { MenubarModule } from 'primeng/menubar';
     ToolbarModule,
     ButtonModule,
     SplitButtonModule,
+    MenuModule,
+    ToastModule,
+    MegaMenuModule,
+    AvatarModule
   ],
 })
 export class SharedModule {}
