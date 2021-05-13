@@ -1,19 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { LayoutWrapperComponent } from './layout/container/layout-wrapper/layout-wrapper.component';
 
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { layoutComponents } from './layout';
 
 @NgModule({
-  declarations: [
-    HeaderComponent,
-    FooterComponent,
-    LayoutWrapperComponent
-  ],
-  imports: [
-    CommonModule
-  ]
+  declarations: [...layoutComponents],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  exports: [ReactiveFormsModule, ...layoutComponents],
 })
-export class SharedModule { }
+export class SharedModule {}

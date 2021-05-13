@@ -9,7 +9,6 @@ export class LayoutWrapperComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }
