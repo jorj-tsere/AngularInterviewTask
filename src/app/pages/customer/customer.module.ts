@@ -6,7 +6,15 @@ import { customerPageComponents } from './pages';
 import { SharedModule } from '@shared/shared.module';
 import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
-import { CustomerListResolverService } from '@core/resolvers/customer-list-resolver.service';
+
+import {TableModule} from 'primeng/table';
+import {ContextMenuModule} from 'primeng/contextmenu';
+import {ButtonModule} from 'primeng/button';
+import {DropdownModule} from 'primeng/dropdown';
+import {ProgressBarModule} from 'primeng/progressbar';
+import {InputTextModule} from 'primeng/inputtext';
+
+
 @NgModule({
   declarations: [...customerPageComponents],
   imports: [
@@ -14,6 +22,20 @@ import { CustomerListResolverService } from '@core/resolvers/customer-list-resol
     CustomerRoutingModule,
     SharedModule,
     MessageModule,
+    TableModule,
+    ContextMenuModule,
+    ButtonModule,
+    DropdownModule,
+    ProgressBarModule,
+    InputTextModule
+  ],
+  exports: [
+    TableModule,
+    ContextMenuModule,
+    ButtonModule,
+    DropdownModule,
+    ProgressBarModule,
+    InputTextModule
   ],
   providers: [MessageService],
 })

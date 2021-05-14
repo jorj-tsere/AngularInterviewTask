@@ -18,6 +18,21 @@ export const loadCustomersFailure = createAction(
 );
 
 
+export const loadCustomer = createAction(
+  '[Customer Details Page] Load Customer Details',
+  props<{ id: number }>()
+);
+
+export const loadCustomerSuccess = createAction(
+  '[Customer Details Page || Effect] Load Customer Success',
+  props<{ customer: Customer }>()
+);
+
+export const loadCustomerFailure = createAction(
+  '[Customer Details Page || Effect] Load Customer Failure',
+  props<{ error: any }>()
+);
+
 
 
 

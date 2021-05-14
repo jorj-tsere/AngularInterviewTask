@@ -9,13 +9,12 @@ import { mergeMap, map, catchError, filter, take } from 'rxjs/operators';
 
 @Injectable()
 export class CustomerEffects {
-  loadCompanies$ = createEffect(() => {
+  loadCustomers$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(fromCustomerActions.loadCustomers),
       mergeMap((action) => {
         return this.customerSerive.getAll().pipe(
           map((customers: Customer[]) => {
-            console.log('customers ', customers);
             return fromCustomerActions.loadCustomersSuccess({ customers });
           }),
           catchError((error: Error) =>
@@ -23,6 +22,22 @@ export class CustomerEffects {
           )
         );
       })
+    );
+  });
+
+  loadCustomer$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromCustomerActions.loadCustomer),
+      mergeMap((action) =>
+        this.customerSerive.getCustomer(action.id).pipe(
+          map((customer: Customer) =>
+            fromCustomerActions.loadCustomerSuccess({ customer })
+          ),
+          catchError((error: Error) =>
+            of(fromCustomerActions.loadCustomerFailure({ error }))
+          )
+        )
+      )
     );
   });
 

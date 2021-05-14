@@ -12,24 +12,36 @@ import {
   loadCustomers,
   loadCustomersSuccess,
 } from '@store/actions/customer.actions';
+import { selectEntities } from '@store/reducers/customer.reducer';
 import {
   selectAllCustomers,
   selectAllCustomersViewModel,
 } from '@store/selectors/customer.selectors';
 import { Observable, of } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { filter, first, take, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomerListResolverService implements Resolve<any> {
-  constructor(private store: Store<AppState>, private action$: Actions) {}
+  constructor(private store: Store<AppState>) {}
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> | Promise<any> | any {
-    this.store.dispatch(loadCustomers());
+
+    return this.store.pipe(
+      select(selectAllCustomers),
+      tap((customers: Customer[]) => {
+        console.log('not yew dispatched', customers);
+        if (!customers || !customers.length) {
+          console.log('customers not found and dispatched');
+          this.store.dispatch(loadCustomers());
+        }
+      }),
+      first()
+    );
 
     // return this.store.pipe(select(selectAllCustomers), take(1)).toPromise();
 

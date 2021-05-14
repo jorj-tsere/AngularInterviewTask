@@ -82,7 +82,7 @@ server.use(/^(?!\/api\/auth).*$/, (req, res, next) => {
       },
     };
 
-    res.status(status).json(response);
+    res.status(401).json(response);
     return;
   }
   try {

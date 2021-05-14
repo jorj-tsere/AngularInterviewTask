@@ -38,7 +38,9 @@ export const selectError = createSelector(
 
 export const selectEntity = createSelector(
   selectAllEntities,
-  (entities: any, props: any) => entities[props.id]
+  (entities: any, props: any) => {
+    return entities[props.id];
+  }
 );
 
 export const entityExists = createSelector(

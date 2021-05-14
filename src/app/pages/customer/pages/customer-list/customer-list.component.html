@@ -1,3 +1,59 @@
-<p>resolverData$ = {{  resolverData$ | async | json }}</p>
-
-
+<div *ngIf="customers">
+  <div class="card">
+    <h5>Local Storage</h5>
+    <p-table #dt2 [value]="customers" selectionMode="single" [(selection)]="selectedCustomer2" dataKey="id"
+      styleClass="p-datatable-customers" [rows]="1" [paginator]="true" stateStorage="local" stateKey="customersTableState">
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="name">Name <p-sortIcon field="lastName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="lastName">lastNa <p-sortIcon field="lastName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="lastName">Representative <p-sortIcon field="lastName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="lastName">Status <p-sortIcon field="status"></p-sortIcon>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            <!-- <input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" [value]="dt2.filters['name']?.value" placeholder="Search by Name" class="p-column-filter"> -->
+          </th>
+          <th>
+            <!-- <input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" [value]="dt2.filters['country.name']?.value" placeholder="Search by Country" class="p-column-filter"> -->
+          </th>
+          <th>
+            <!-- <input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" [value]="dt2.filters['representative.name']?.value" placeholder="Search by Representative" class="p-column-filter"> -->
+          </th>
+          <th>
+            <!-- <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" [value]="dt2.filters['status']?.value" placeholder="Search by Status" class="p-column-filter"> -->
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-customer>
+        <tr [pSelectableRow]="customer">
+          <td>
+            <!-- <span class="p-column-title">Name</span> -->
+            {{customer.firstName}} {{customer.lastName}}
+          </td>
+          <td>
+            <!-- <span class="p-column-title">personal Number</span> -->
+            <span class="image-text">{{customer.personalNumber}}</span>
+          </td>
+          <td>
+            <!-- <span class="p-column-title">phone</span> -->
+            <span class="image-text">{{customer.phone}}</span>
+          </td>
+          <td>
+            <!-- <span class="p-column-title">gender</span> -->
+            <span [class]="'customer-badge'">{{customer.gender}}</span>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="4">No customers found.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

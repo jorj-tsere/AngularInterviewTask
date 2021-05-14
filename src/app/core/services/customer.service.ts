@@ -12,6 +12,10 @@ export class CustomerService {
 
 
   getAll(): Observable<any> {
-    return this.http.get(environment.baseUrl + '/api/auth/getAccessToken');
+    return this.http.get(environment.baseUrl + '/api/customers');
+  }
+
+  getCustomer(id: number): Observable<any> {
+    return this.http.get(environment.baseUrl + '/api/customers/' + id);
   }
 }

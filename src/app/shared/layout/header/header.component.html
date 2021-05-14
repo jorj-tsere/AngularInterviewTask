@@ -5,7 +5,6 @@
 
   <div class="p-toolbar-group-right">
     <p-menu #menu [popup]="true" [model]="items"></p-menu>
-    <p-avatar [style]="{'cursor':'pointer'}" size="large" shape="circle" icon="pi pi-user" (click)="menu.toggle($event)"></p-avatar>
-    <p> userModel$ = {{ userModel$ | async | json }} </p>
+    <p-avatar [style]="{'cursor':'pointer', 'color': '#fff', 'border': '1px solid #fff'}" size="large" shape="circle" icon="pi pi-user" (click)="menu.toggle($event)"></p-avatar>
   </div>
 </p-toolbar>

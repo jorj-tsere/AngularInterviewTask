@@ -35,7 +35,7 @@ import { CustomerListResolverService } from '@core/resolvers/customer-list-resol
       },
     }),
   ],
-  providers: [MessageService],
+  providers: [MessageService, CustomerListResolverService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

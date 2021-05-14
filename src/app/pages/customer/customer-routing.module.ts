@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CustomerDetailsResolverService } from '@core/resolvers/customer-details-resolver.service';
 import { CustomerListResolverService } from '@core/resolvers/customer-list-resolver.service';
 import { CustomerWrapperComponent } from './customer-wrapper/customer-wrapper.component';
 import { CreateCustomerComponent } from './pages/create-customer/create-customer.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
       {
         path: 'edit/:id',
         component: UpdateCustomerComponent,
+        resolve: { data: CustomerDetailsResolverService },
       },
     ],
   },
