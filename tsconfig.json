@@ -23,6 +23,7 @@
       "@core-models": ["app/core/models/index.ts"],
       "@pages/*": ["app/pages/*"],
       "@shared/*": ["app/shared/*"],
+      "@store-barrel": ["app/store/index.ts"],
       "@store/*": ["app/store/*"],
       "@core-constants": ["app/consts/index.ts"],
     },

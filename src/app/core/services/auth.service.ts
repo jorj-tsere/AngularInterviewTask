@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthRequest, HttpResponseMessage } from '@core/models';
 import { environment } from '@env';
 import { Observable } from 'rxjs';
 
@@ -10,8 +11,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(credentials: any): Observable<any> {
-    return this.http.post<any>(
+  login(credentials: AuthRequest): Observable<HttpResponseMessage> {
+    return this.http.post<HttpResponseMessage>(
       environment.baseUrl + '/api/auth/getAccessToken',
       credentials
     );
