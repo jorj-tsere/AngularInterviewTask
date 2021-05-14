@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CustomerListResolverService } from '@core/resolvers/customer-list-resolver.service';
 import { CustomerWrapperComponent } from './customer-wrapper/customer-wrapper.component';
 import { CreateCustomerComponent } from './pages/create-customer/create-customer.component';
 import { CustomerListComponent } from './pages/customer-list/customer-list.component';

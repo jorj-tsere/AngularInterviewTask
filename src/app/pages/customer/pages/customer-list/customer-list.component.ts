@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-customer-list',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./customer-list.component.scss']
 })
 export class CustomerListComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  public resolverData$: Observable<any>;
+  constructor(private activatedRoute: ActivatedRoute) {
+    this.resolverData$ = this.activatedRoute.data;
+    this.activatedRoute.data.subscribe(items => {
+      console.log(items);
+    });
   }
+
+  ngOnInit(): void {}
 
 }

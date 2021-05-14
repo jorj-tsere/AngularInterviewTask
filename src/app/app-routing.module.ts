@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '@core/guards/auth.guard';
+import { CustomerListResolverService } from '@core/resolvers/customer-list-resolver.service';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
@@ -10,6 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'customers',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./pages/customer/customer.module').then((m) => m.CustomerModule),
   },
@@ -21,6 +24,10 @@ const routes: Routes = [
   {
     path: '404',
     component: NotFoundComponent,
+  },
+  {
+    path: '**',
+    redirectTo: '404',
   },
 ];
 

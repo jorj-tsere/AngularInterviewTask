@@ -1,20 +1,52 @@
+import { state } from '@angular/animations';
+import { User } from '@core/models';
 import { Action, createReducer, on } from '@ngrx/store';
-import * as AuthActions from '../actions/auth.actions';
+import * as authActions from '@store/actions/auth.actions';
 
 export const authFeatureKey = 'auth';
 
 export interface AuthState {
-  error: any;
+  loading: boolean;
+  user: User | null;
 }
 
 export const initialState: AuthState = {
-  error: null,
+  loading: false,
+  user: null,
 };
 
 export const reducer = createReducer(
-  initialState
-
-  // on(AuthActions.login, state => state),
-  // on(AuthActions.loadAuthsSuccess, (state, action) => state),
-  // on(AuthActions.loadAuthsFailure, (state, action) => state),
+  initialState,
+  // tslint:disable-next-line:no-shadowed-variable
+  on(authActions.loginPage, (state) => {
+    return {
+      ...state,
+      loading: true,
+    };
+  }),
+  on(
+    authActions.loginSuccess,
+    // tslint:disable-next-line:no-shadowed-variable
+    authActions.browserReload, (state, action) => {
+    return {
+      ...state,
+      user: action.user,
+      loading: false,
+    };
+  }),
+  // tslint:disable-next-line:no-shadowed-variable
+  on(authActions.loginFailure, (state) => {
+    return {
+      ...state,
+      loading: false,
+    };
+  }),
+   // tslint:disable-next-line:no-shadowed-variable
+   on(authActions.logoutUser, (state) => {
+    return {
+      ...state,
+      user: null,
+      loading: false,
+    };
+  })
 );

@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor, HttpResponseInterceptor } from './interceptors';
-import {ToastModule} from 'primeng/toast';
+import { ToastModule } from 'primeng/toast';
+import { AuthGuard } from './guards/auth.guard';
+import { CustomerListResolverService } from './resolvers/customer-list-resolver.service';
 
 @NgModule({
   declarations: [],
@@ -19,6 +21,8 @@ import {ToastModule} from 'primeng/toast';
       useClass: HttpResponseInterceptor,
       multi: true,
     },
+    AuthGuard,
+    CustomerListResolverService,
   ],
 })
 export class CoreModule {}

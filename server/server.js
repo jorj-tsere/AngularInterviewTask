@@ -28,13 +28,14 @@ function verifyToken(token) {
 
 // Check if the user exists in database
 function isAuthenticated({ username, password }) {
-  // console.log('userdb.users', userdb.users);
   return (
     userdb.users.findIndex(
       (user) => user.username === username && user.password === password
     ) !== -1
   );
 }
+
+
 
 // Login to one of the users from ./users.json
 server.post("/api/auth/getAccessToken", (req, res) => {
@@ -49,7 +50,7 @@ server.post("/api/auth/getAccessToken", (req, res) => {
       },
     };
 
-    res.status(status).json(response);
+    res.status(401).json(response);
     return;
   }
   const access_token = createToken({ username });
