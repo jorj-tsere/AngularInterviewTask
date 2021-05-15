@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,4 +18,7 @@ export class CustomerService {
   getCustomer(id: number): Observable<any> {
     return this.http.get(environment.baseUrl + '/api/customers/' + id);
   }
+
+
+
 }

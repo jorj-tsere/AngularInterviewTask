@@ -99,6 +99,52 @@
         "id": 4,
         "name": "RUB"
       }
+    ],
+    "gender": [
+      {
+        "id": 1,
+        "name": "კაცი"
+      },
+      {
+        "id": 2,
+        "name": "ქალი"
+      }
+    ],
+    "account_statuses": [
+      {
+        "id" : 1,
+        "name": "აქტიური"
+      },
+      {
+        "id" : 2,
+        "name": "დახურული"
+      }
+    ],
+    "account_types": [
+      {
+        "id": 1,
+        "name": "მიმდინარე"
+      },
+      {
+        "id": 2,
+        "name": "შემნახველი"
+      },
+      {
+        "id": 3,
+        "name": "დაგროვებითი"
+      }
     ]
-  }
+  },
+  "accounts": [
+    {
+      "id": 1,
+      "clientId": 1,
+      "acountTypeId": 1,
+      "acountType": "სამომხმარებლო",
+      "ccyId": 1,
+      "ccy": "GEL",
+      "accountStatusID":1,
+      "accountStatus": "აქტიური"
+    }
+  ]
 }

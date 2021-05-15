@@ -1,1 +1,9 @@
-@import 'reset';
+@import "reset";
+
+.default-form-error {
+  background: none !important;
+  justify-content: left !important;
+  padding: 0.6rem 0.2rem !important;
+  align-items: baseline !important;
+  line-height: 1.3;
+}

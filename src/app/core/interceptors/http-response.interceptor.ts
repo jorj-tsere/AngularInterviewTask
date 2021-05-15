@@ -44,7 +44,6 @@ export class HttpResponseInterceptor implements HttpInterceptor {
 
   // error Handler
   private errorHandler(response: HttpEvent<any>): Observable<HttpEvent<any>> {
-    console.log(response);
     if (response instanceof HttpErrorResponse) {
       const httpResponse: HttpResponseMessage = response.error;
       if (!httpResponse.success && httpResponse.body.showMessage) {

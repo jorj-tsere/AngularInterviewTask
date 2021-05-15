@@ -42,18 +42,5 @@ export class CustomerListResolverService implements Resolve<any> {
       }),
       first()
     );
-
-    // return this.store.pipe(select(selectAllCustomers), take(1)).toPromise();
-
-    // return this.action$.pipe(ofType(loadCustomersSuccess));
-
-    // return this.store.pipe(
-    //   select(selectAllCustomers),
-    //   tap((customers: Customer[]) => {
-    //     if (!customers || !customers.length) {
-    //       this.store.dispatch(loadCustomers());
-    //     }
-    //   })
-    // );
   }
 }

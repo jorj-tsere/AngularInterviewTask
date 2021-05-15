@@ -7,13 +7,16 @@ import { SharedModule } from '@shared/shared.module';
 import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
 
-import {TableModule} from 'primeng/table';
-import {ContextMenuModule} from 'primeng/contextmenu';
-import {ButtonModule} from 'primeng/button';
-import {DropdownModule} from 'primeng/dropdown';
-import {ProgressBarModule} from 'primeng/progressbar';
-import {InputTextModule} from 'primeng/inputtext';
-
+import { TableModule } from 'primeng/table';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { InputTextModule } from 'primeng/inputtext';
+import { FieldsetModule } from 'primeng/fieldset';
+import { CheckboxModule } from 'primeng/checkbox';
+import { FormsModule } from '@angular/forms';
+import {FileUploadModule} from 'primeng/fileupload';
 
 @NgModule({
   declarations: [...customerPageComponents],
@@ -27,7 +30,11 @@ import {InputTextModule} from 'primeng/inputtext';
     ButtonModule,
     DropdownModule,
     ProgressBarModule,
-    InputTextModule
+    InputTextModule,
+    FieldsetModule,
+    CheckboxModule,
+    FormsModule,
+    FileUploadModule
   ],
   exports: [
     TableModule,
@@ -35,7 +42,10 @@ import {InputTextModule} from 'primeng/inputtext';
     ButtonModule,
     DropdownModule,
     ProgressBarModule,
-    InputTextModule
+    InputTextModule,
+    FieldsetModule,
+    CheckboxModule,
+    FileUploadModule
   ],
   providers: [MessageService],
 })

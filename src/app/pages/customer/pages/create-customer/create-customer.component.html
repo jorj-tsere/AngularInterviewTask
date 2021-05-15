@@ -1,1 +1,210 @@
-<p>create-customer works!</p>
+<a routerLink="/customers">back</a> <br /><br />
+<form [formGroup]="form" *ngIf="lookups">
+  <div class="p-fluid p-formgrid p-grid">
+    <div class="p-field p-col-3 p-md-3">
+      <label for="firstname">სახელი</label>
+      <input
+        id="firstname"
+        formControlName="firstName"
+        class="p-inputtext-sm"
+        type="text"
+        pInputText
+      />
+
+      <div class="field-error">
+        <p
+          class="field-error--description"
+          *ngIf="
+            (firstName.touched || submitted) &&
+            !firstName.errors?.required &&
+            (firstName.errors?.minlength || firstName.errors?.maxlength)
+          "
+        >
+          <p-message
+            severity="error"
+            [styleClass]="'default-form-error'"
+            text="მინ-2, მაქს - 50"
+          ></p-message>
+        </p>
+        <p
+          class="field-error--description"
+          *ngIf="(firstName.touched || submitted) && firstName.errors?.required"
+        >
+          <p-message
+            severity="error"
+            [styleClass]="'default-form-error'"
+            text="სავალდებულოა"
+          ></p-message>
+        </p>
+        <p
+          class="field-error--description"
+          *ngIf="
+            (firstName.touched || submitted) &&
+            !firstName.errors?.required &&
+            firstName.errors?.accapted_only_single_language
+          "
+        >
+          <p-message
+            severity="error"
+            [styleClass]="'default-form-error'"
+            [text]="firstName.errors?.accapted_only_single_language"
+          ></p-message>
+        </p>
+      </div>
+    </div>
+    <div class="p-field p-col-3 p-md-3">
+      <label for="lastname">გვარი</label>
+      <input
+        id="lastname"
+        formControlName="lastName"
+        class="p-inputtext-sm"
+        type="text"
+        pInputText
+      />
+      <div class="field-error">
+        <p
+          class="field-error--description"
+          *ngIf="
+            (lastName.touched || submitted) &&
+            !lastName.errors?.required &&
+            (lastName.errors?.minlength || lastName.errors?.maxlength)
+          "
+        >
+          <p-message
+            severity="error"
+            [styleClass]="'default-form-error'"
+            text="მინ-2, მაქს - 50"
+          ></p-message>
+        </p>
+        <p
+          class="field-error--description"
+          *ngIf="(lastName.touched || submitted) && lastName.errors?.required"
+        >
+          <p-message
+            severity="error"
+            [styleClass]="'default-form-error'"
+            text="სავალდებულოა"
+          ></p-message>
+        </p>
+        <p
+          class="field-error--description"
+          *ngIf="
+            (lastName.touched || submitted) &&
+            !lastName.errors?.required &&
+            lastName.errors?.accapted_only_single_language
+          "
+        >
+          <p-message
+            severity="error"
+            [styleClass]="'default-form-error'"
+            [text]="lastName.errors?.accapted_only_single_language"
+          ></p-message>
+        </p>
+      </div>
+    </div>
+    <div class="p-field p-col-3 p-md-3">
+      <label for="genderId">სქესი</label>
+      <p-dropdown
+        inputId="genderId"
+        [options]="lookups.gender"
+        class="p-inputtext-sm"
+        placeholder="Select"
+        optionLabel="name"
+      ></p-dropdown>
+    </div>
+    <div class="p-field p-col-3 p-md-3">
+      <label for="personalNumber">პირადი ნომერი</label>
+      <input
+        id="personalNumber"
+        class="p-inputtext-sm"
+        type="text"
+        pInputText
+      />
+    </div>
+    <div class="p-field p-col-3 p-md-3">
+      <label for="phone">მობილური</label>
+      <input id="phone" class="p-inputtext-sm" type="text" pInputText />
+    </div>
+  </div>
+
+  <p-fieldset legend="იურიდიული მისამართი">
+    <div class="p-fluid p-formgrid p-grid p-align-center">
+      <div class="p-field p-col-12 p-md-3">
+        <label for="country_legal">ქვეყანა</label>
+        <input
+          id="country_legal"
+          class="p-inputtext-sm"
+          type="text"
+          pInputText
+        />
+      </div>
+      <div class="p-field p-col-12 p-md-3">
+        <label for="city_legal">ქალაქი</label>
+        <input id="city_legal" class="p-inputtext-sm" type="text" pInputText />
+      </div>
+      <div class="p-field p-col-12 p-md-3">
+        <label for="address_legal">მისამართი</label>
+        <input
+          id="address_legal"
+          class="p-inputtext-sm"
+          type="text"
+          pInputText
+        />
+      </div>
+      <div class="p-field p-col-12 p-md-3">
+        <p-checkbox
+          label="იგივე ფაქტიური"
+          (onChange)="changed($event)"
+          value="false"
+        ></p-checkbox>
+      </div>
+    </div>
+  </p-fieldset>
+
+  <p-fieldset legend="ფაქტიური მისამართი">
+    <div class="p-fluid p-formgrid p-grid p-align-center">
+      <div class="p-field p-col-12 p-md-3">
+        <label for="country_actual">ქვეყანა</label>
+        <input
+          id="country_actual"
+          class="p-inputtext-sm"
+          type="text"
+          pInputText
+        />
+      </div>
+      <div class="p-field p-col-12 p-md-3">
+        <label for="city_actual">ქალაქი</label>
+        <input id="city_actual" class="p-inputtext-sm" type="text" pInputText />
+      </div>
+      <div class="p-field p-col-12 p-md-3">
+        <label for="address_actual">მისამართი</label>
+        <input
+          id="address_actual"
+          class="p-inputtext-sm"
+          type="text"
+          pInputText
+        />
+      </div>
+    </div>
+  </p-fieldset>
+
+  <p>selectedImage = {{ selectedImage | json }}</p>
+
+  <div class="p-fluid p formgrid p-grid">
+    <!-- mode="basic" -->
+    <p-fileUpload
+      name="myfile[]"
+      [accept]="'image/*'"
+      [auto]="true"
+      [customUpload]="true"
+      (onRemove)="removeEvent($event)"
+      (uploadHandler)="myUploader($event)"
+    ></p-fileUpload>
+  </div>
+
+  <code>
+    firstName: string; lastName: string; gender: string; genderId: string;
+    personalNumber: string; phone: string; legalAddress: Address; actualAddress:
+    Address; imageBase64: string;
+  </code>
+</form>
