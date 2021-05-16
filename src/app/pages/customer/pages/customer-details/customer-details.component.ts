@@ -5,9 +5,15 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  Router,
+} from '@angular/router';
+import { Customer, Lookups } from '@core/models';
 import { CustomerService } from '@core/services/customer.service';
 import { LookupService } from '@core/services/lookup.service';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { addressFormTypes } from '@shared/enums/address-form-type.enum';
 import {
   PhoneNumberValidator,
@@ -15,44 +21,42 @@ import {
   WhitespaceValidator,
 } from '@shared/helpers';
 import { AppState } from '@store-barrel';
-import { createCustomer } from '@store/actions/customer.actions';
-
-interface ListObject {
-  id: number;
-  name: string;
-}
-
-interface Lookups {
-  account_statuses: ListObject[];
-  account_types: ListObject[];
-  ccy: ListObject[];
-  gender: ListObject[];
-}
-
-interface PreviewImage {
-  imgUrl: string | ArrayBuffer | null;
-  name: string;
-  type: string;
-}
+import {
+  createCustomer,
+  loadCustomer,
+  updateCustomer,
+} from '@store/actions/customer.actions';
+import { selectEntity } from '@store/selectors/customer.selectors';
+import { Observable } from 'rxjs';
+import { filter, first, tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-create-customer',
-  templateUrl: './create-customer.component.html',
-  styleUrls: ['./create-customer.component.scss'],
+  selector: 'app-customer-details',
+  templateUrl: './customer-details.component.html',
+  styleUrls: ['./customer-details.component.scss'],
 })
 export class CreateCustomerComponent implements OnInit {
   public form: FormGroup;
-  public lookups: Lookups | null = null;
+  public lookups: Lookups;
   public equalAddresses = false;
-  public selectedImage: PreviewImage | null = null;
   public submitted = false;
+  customer$: Observable<any>;
+  fromEditInterface = false;
+  customerId: number;
   addressFormTypes: typeof addressFormTypes = addressFormTypes;
 
   constructor(
     private fb: FormBuilder,
     private lookupService: LookupService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
+    this.fromEditInterface = this.router.url.indexOf('/edit') !== -1;
+    this.customerId = this.route.snapshot.params.id;
+    this.customer$ = this.store.pipe(
+      select(selectEntity, { id: this.customerId })
+    );
     this.form = this.fb.group({
       firstName: [
         null,
@@ -91,6 +95,49 @@ export class CreateCustomerComponent implements OnInit {
         address: [null, Validators.required],
       }),
       customerImage: [null],
+    });
+
+    if (this.fromEditInterface) {
+      this.setValues();
+    }
+  }
+
+  setValues(): void {
+    //     actualAddress:
+    // address: "isani"
+    // city: "tbilisi"
+    // country: "georgia"
+    // gender: "male"
+    // id: 4
+    // legalAddress:
+    // address: "isani"
+    // city: "tbilisi"
+    // country: "georgia"
+
+    this.customer$.subscribe((customer: Customer) => {
+      this.firstName.setValue(customer.firstName);
+      this.lastName.setValue(customer.lastName);
+      this.customerImage.setValue(customer.customerImage);
+      this.genderId.setValue(+customer.genderId);
+      this.personalNumber.setValue(customer.personalNumber);
+      this.phone.setValue(customer.phone);
+      // set Legal Address
+      this.legalAddress.controls.address.setValue(
+        customer.legalAddress.address
+      );
+      this.legalAddress.controls.country.setValue(
+        customer.legalAddress.country
+      );
+      this.legalAddress.controls.city.setValue(customer.legalAddress.city);
+      // set Actual Address
+      this.actualAddress.controls.address.setValue(
+        customer.actualAddress.address
+      );
+      this.actualAddress.controls.country.setValue(
+        customer.actualAddress.country
+      );
+      this.actualAddress.controls.city.setValue(customer.actualAddress.city);
+      console.log();
     });
   }
 
@@ -148,11 +195,6 @@ export class CreateCustomerComponent implements OnInit {
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.customerImage.setValue(reader.result);
-      this.selectedImage = {
-        imgUrl: reader.result,
-        name: file.name,
-        type: file.type,
-      };
     };
   }
 
@@ -165,8 +207,12 @@ export class CreateCustomerComponent implements OnInit {
     this.form.markAllAsTouched();
     if (this.form.valid) {
       const payload = this.form.getRawValue();
-      this.store.dispatch(createCustomer({ customer: payload }));
+      this.store.dispatch(
+        this.fromEditInterface
+          ? updateCustomer({ id: this.customerId, customer: payload })
+          : createCustomer({ customer: payload })
+      );
     }
-    console.log('submit');
+    // console.log('submit');
   }
 }

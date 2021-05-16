@@ -14,9 +14,9 @@ export class CustomerEffects {
       ofType(fromCustomerActions.loadCustomers),
       mergeMap((action) => {
         return this.customerSerive.getAll().pipe(
-          map((customers: Customer[]) => {
-            return fromCustomerActions.loadCustomersSuccess({ customers });
-          }),
+          map((customers: Customer[]) =>
+            fromCustomerActions.loadCustomersSuccess({ customers })
+          ),
           catchError((error: Error) =>
             of(fromCustomerActions.loadCustomersFailure({ error }))
           )
@@ -48,6 +48,38 @@ export class CustomerEffects {
         this.customerSerive.createCustomer(action.customer).pipe(
           map((customer: Customer) =>
             fromCustomerActions.createCustomerSuccess({ customer })
+          ),
+          catchError((error: Error) =>
+            of(fromCustomerActions.createCustomerFailure({ error }))
+          )
+        )
+      )
+    );
+  });
+
+  updateCustomer$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromCustomerActions.updateCustomer),
+      mergeMap((action) =>
+        this.customerSerive.updateCustomer(action.customer, action.id).pipe(
+          map((customer: Customer) =>
+            fromCustomerActions.updateCustomerSuccess({ customer })
+          ),
+          catchError((error: Error) =>
+            of(fromCustomerActions.updateCustomerFailure({ error }))
+          )
+        )
+      )
+    );
+  });
+
+  removeCustomer$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromCustomerActions.removeCustomer),
+      mergeMap((action) =>
+        this.customerSerive.removeCustomer(action.id).pipe(
+          map((customer: Customer) =>
+            fromCustomerActions.removeCustomerSuccess({ id: action.id })
           ),
           catchError((error: Error) =>
             of(fromCustomerActions.createCustomerFailure({ error }))

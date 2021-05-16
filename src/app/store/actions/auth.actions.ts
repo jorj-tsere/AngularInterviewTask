@@ -28,11 +28,19 @@ export const loginFailure = createAction(
  * ****************************************************
  */
 
-export const logoutUser = createAction('[Header Component] Logout User');
+export const logoutUser = createAction(
+  '[Header Component] Logout User',
+  (system = false) => ({ system }),
+);
+// props<{ system: boolean = false}>()
 
-export const logoutUserSuccess = createAction('[Header Component] Logout User Success');
+export const logoutUserSuccess = createAction(
+  '[Header Component] Logout User Success'
+);
 
-export const logoutUserFailure = createAction('[Header Component] Logout User Failure');
+export const logoutUserFailure = createAction(
+  '[Header Component] Logout User Failure'
+);
 
 /**
  * ****************************************************

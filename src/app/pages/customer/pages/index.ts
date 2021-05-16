@@ -1,5 +1,5 @@
 import { CustomerWrapperComponent } from '../customer-wrapper/customer-wrapper.component';
-import { CreateCustomerComponent } from './create-customer/create-customer.component';
+import { CreateCustomerComponent } from './customer-details/customer-details.component';
 import { CustomerListComponent } from './customer-list/customer-list.component';
 import { UpdateCustomerComponent } from './update-customer/update-customer.component';
 

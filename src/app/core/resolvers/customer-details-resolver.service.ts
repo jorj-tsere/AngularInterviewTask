@@ -10,7 +10,7 @@ import {
   selectEntity,
 } from '@store/selectors/customer.selectors';
 import { Observable } from 'rxjs';
-import { tap, first, mergeMap } from 'rxjs/operators';
+import { tap, first, mergeMap, filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -24,15 +24,19 @@ export class CustomerDetailsResolverService {
   ): Observable<any> | Promise<any> | any {
     // tslint:disable-next-line:no-string-literal
     const { id } = route.params;
-
-    return this.store.pipe(select(entityExists, { id })).pipe(
-      mergeMap((isentityExists) => {
-        if (!isentityExists) {
+    console.log('id', id);
+    return this.store.pipe(
+      select(selectEntity, { id }),
+      tap((customer) => {
+        if (!customer) {
+          console.warn('customer not found and dispatched', customer);
           this.store.dispatch(loadCustomer({ id }));
+        } else {
+          console.warn('customer found and not dispatched', customer);
         }
-
-        return this.store.pipe(select(selectEntity, { id }), first());
-      })
+      }),
+      filter((customer) => !!customer),
+      first()
     );
   }
 }

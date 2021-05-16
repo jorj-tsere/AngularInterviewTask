@@ -7,6 +7,8 @@
   class="p-button-text"
 ></a>
 <br /><br />
+<!-- obs = {{ obs$ | async | json }} -->
+<br /><br />
 <form [formGroup]="form" *ngIf="lookups" (submit)="submit()">
   <div class="p-fluid p-formgrid p-grid">
     <!-- სახელი -->
@@ -113,15 +115,20 @@
       </div>
     </div>
     <!-- სქესი -->
+    <!-- (onChange)="genderId.setValue(+$event.value.id)"
+        (onBlur)="genderId.markAsTouched()" -->
+    <!-- <p>form.value = {{ this.form.getRawValue() | json }}</p> -->
     <div class="p-field p-col-3 p-md-3">
       <label for="genderId">სქესი</label>
       <p-dropdown
         inputId="genderId"
         [options]="lookups.gender"
+        optionLabel="name"
+        optionValue="id"
+        dataKey="id"
+        formControlName="genderId"
         [class.ng-invalid]="!genderId.valid && genderId.touched"
         [class.ng-valid]="genderId.valid"
-        (onChange)="genderId.setValue(+$event.value.id)"
-        (onBlur)="genderId.markAsTouched()"
         class="p-inputtext-sm"
         placeholder="აირჩიეთ მნიშვნელობა"
         optionLabel="name"
@@ -233,17 +240,22 @@
   <br /><br />
   <!-- ფოტოსურათი -->
   <div class="p-fluid p formgrid p-grid">
+
     <!-- mode="basic" -->
+    <p class="p-mx-2" *ngIf="customerImage.value">
+        <img [src]="customerImage.value" width="200" alt="img">
+    </p>
     <p-fileUpload
-      name="myfile[]"
-      chooseLabel="აირჩიეთ ფაილი"
-      [accept]="'image/*'"
-      [auto]="true"
-      [customUpload]="true"
-      (onRemove)="removeEvent($event)"
-      (uploadHandler)="myUploader($event)"
-    ></p-fileUpload>
+    name="myfile[]"
+
+    chooseLabel="აირჩიეთ ფაილი"
+    [accept]="'image/*'"
+    [auto]="true"
+    [customUpload]="true"
+    (onRemove)="removeEvent($event)"
+    (uploadHandler)="myUploader($event)"
+  ></p-fileUpload>
   </div>
   <br /><br />
-  <button pButton type="submit" label="Submit" class="p-button-lg"></button>
+  <button pButton type="submit" label="შენახვა"></button>
 </form>

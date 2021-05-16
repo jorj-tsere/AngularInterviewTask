@@ -9,5 +9,5 @@ export interface Customer {
   phone: string;
   legalAddress: Address;
   actualAddress: Address;
-  imageBase64: string;
+  customerImage: string;
 }

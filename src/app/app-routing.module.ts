@@ -15,7 +15,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () =>
       import('./pages/customer/customer.module').then((m) => m.CustomerModule),
-    resolve: { data: CustomerListResolverService },
+      resolve: { data: CustomerListResolverService }
   },
   {
     path: '',

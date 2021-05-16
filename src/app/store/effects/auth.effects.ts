@@ -20,7 +20,6 @@ export class AuthEffects {
               const accessToken = response.body.data.accessToken;
               localStorage.setItem('fakeAccessToken', accessToken);
               const user: User = this.jwtHelper.decodeToken(accessToken);
-              console.log('this.jwtHelper', user);
               return authActions.loginSuccess({ user });
             } else {
               throw new Error('Valid token not returned');

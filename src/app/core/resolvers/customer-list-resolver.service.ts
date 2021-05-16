@@ -30,14 +30,14 @@ export class CustomerListResolverService implements Resolve<any> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> | Promise<any> | any {
-
     return this.store.pipe(
       select(selectAllCustomers),
       tap((customers: Customer[]) => {
-        console.log('not yew dispatched', customers);
         if (!customers || !customers.length) {
-          console.log('customers not found and dispatched');
+          console.warn('customers not found and dispatched');
           this.store.dispatch(loadCustomers());
+        } else {
+          console.warn('customers found and not dispatched', customers);
         }
       }),
       first()

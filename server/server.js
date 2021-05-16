@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const jsonServer = require("json-server");
 const jwt = require("jsonwebtoken");
 
-console.log("jsonServer", jsonServer);
+// console.log("jsonServer", jsonServer);
 const server = jsonServer.create();
 const router = jsonServer.router("./server/database.json");
 const userdb = JSON.parse(fs.readFileSync("./server/users.json", "UTF-8"));
@@ -12,7 +12,7 @@ server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 server.use(jsonServer.defaults());
 const SECRET_KEY = "132456789";
-const expiresIn = "1h";
+const expiresIn = "30m";
 
 // Create a token from a payload
 function createToken(payload) {
@@ -46,7 +46,7 @@ server.post("/api/auth/getAccessToken", (req, res) => {
       status: 401,
       body: {
         showMessage: true,
-        message: "Incorrect username or password",
+        message: 'ელ.ფოსტა ან პაროლი არასწორია',
       },
     };
 
@@ -58,8 +58,8 @@ server.post("/api/auth/getAccessToken", (req, res) => {
     success: true,
     status: 200,
     body: {
-      showMessage: true,
-      message: "Successfully Logged In!",
+      showMessage: false,
+      message: "Successfully Logged In",
       data: {
         accessToken: access_token,
       },
@@ -90,12 +90,15 @@ server.use(/^(?!\/api\/auth).*$/, (req, res, next) => {
     verifyTokenResult = verifyToken(req.headers.authorization.split(" ")[1]);
 
     if (verifyTokenResult instanceof Error) {
+      // name: "TokenExpiredError"
+      const errorDesc = verifyTokenResult.message;
       const response = {
         success: false,
         status: 401,
         body: {
-          showMessage: false,
-          message: "Invalid Access Token",
+          showMessage: errorDesc === 'jwt expired',
+          verifyTokenResult: verifyTokenResult,
+          message: errorDesc === 'jwt expired' ?  'თქვენი სესიის დრო ამოიწურა. გთხოვთ გაიაროთ ავტორიზაცია' : 'Invalid Access Token',
         },
       };
 
@@ -109,7 +112,7 @@ server.use(/^(?!\/api\/auth).*$/, (req, res, next) => {
       status: 401,
       body: {
         showMessage: false,
-        message: "Error access_token is revoked",
+        message: "unknown error",
       },
     };
 

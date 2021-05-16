@@ -16,13 +16,11 @@ export class LoginComponent implements OnInit {
   public form: FormGroup;
   public authUserViewModel$: Observable<any>;
 
-
-
   constructor(private store: Store<AppState>, private fb: FormBuilder) {
     this.authUserViewModel$ = this.store.pipe(select(authViewModel));
     this.form = this.fb.group({
       username: ['test1@gmail.com', Validators.required],
-      password: ['test1', Validators.required],
+      password: ['Test11234!', Validators.required],
     });
   }
 
@@ -30,7 +28,6 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     const credentials: AuthRequest = this.form.getRawValue();
-    console.log('credentials', credentials);
     this.store.dispatch(loginPage({ payload: credentials }));
   }
 }

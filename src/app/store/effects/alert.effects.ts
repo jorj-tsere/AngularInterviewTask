@@ -22,36 +22,22 @@ export class AlertEffects {
     { dispatch: false }
   );
 
-  unableToLogin$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(fromAuthActions.loginFailure),
-        tap(() => {
-          this.messageService.add({
-            severity: 'warn',
-            summary: 'Unable to login',
-            detail: 'Via MessageService',
-          });
-        })
-      ),
-    { dispatch: false }
-  );
-
   logout$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(fromAuthActions.logoutUser),
-        tap(() => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'User Loged Out!',
-            detail: 'Via MessageService',
-          });
+        tap((action) => {
+          if (!action.system) {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'თქვენ წარმატებით გამოხვედით სისტემიდან!',
+              detail: 'Via MessageService',
+            });
+          }
         })
       ),
     { dispatch: false }
   );
-
 
   createCustomerSuccessMsg$ = createEffect(
     () =>
@@ -68,6 +54,20 @@ export class AlertEffects {
     { dispatch: false }
   );
 
+  removeCustomerSuccessMsg$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(fromCustomer.removeCustomerSuccess),
+        tap(() => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'კლიენტი წარმატებით წაიშალა',
+            detail: 'Via MessageService',
+          });
+        })
+      ),
+    { dispatch: false }
+  );
 
   constructor(
     private actions$: Actions,

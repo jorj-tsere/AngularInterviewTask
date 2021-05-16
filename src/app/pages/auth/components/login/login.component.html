@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="p-col">
-      <button pButton pRipple type="submit" label="Submit"></button>
+      <button pButton pRipple type="submit" [disabled]="(authUserViewModel$ | async).loading" label="შესვლა"></button>
     </div>
   </div>
 </form>

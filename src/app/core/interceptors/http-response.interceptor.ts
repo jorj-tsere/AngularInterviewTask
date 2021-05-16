@@ -12,12 +12,18 @@ import { catchError, tap } from 'rxjs/operators';
 import { environment } from '@env';
 import { HttpResponseMessage } from '@core/models';
 import { MessageService } from 'primeng/api';
+import { AppState } from '@store-barrel';
+import { Store } from '@ngrx/store';
+import { logoutUser } from '@store/actions/auth.actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpResponseInterceptor implements HttpInterceptor {
-  constructor(private messageService: MessageService) {}
+  constructor(
+    private messageService: MessageService,
+    private store: Store<AppState>
+  ) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -46,13 +52,20 @@ export class HttpResponseInterceptor implements HttpInterceptor {
   private errorHandler(response: HttpEvent<any>): Observable<HttpEvent<any>> {
     if (response instanceof HttpErrorResponse) {
       const httpResponse: HttpResponseMessage = response.error;
-      if (!httpResponse.success && httpResponse.body.showMessage) {
+
+      // Unauthorized
+      if (response.status === 401) {
+        this.store.dispatch(logoutUser(true));
+      }
+
+      if (httpResponse.body.showMessage) {
         this.messageService.add({
           severity: 'error',
           summary: httpResponse.body.message,
           detail: 'Via MessageService',
         });
       } else if (!environment.production) {
+        console.log('response', response);
         this.messageService.add({
           severity: 'error',
           summary: 'Somesthing goes wrong, please try later...',

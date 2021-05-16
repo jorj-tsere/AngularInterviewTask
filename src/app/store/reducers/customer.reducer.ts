@@ -22,35 +22,65 @@ export const reducer = createReducer(
   /**
    * LOAD CUSTOMERS
    */
-  on(CustomerActions.loadCustomers, (state) => {
-    return {
-      ...state,
-      loading: true,
-    };
-  }),
+  on(
+    CustomerActions.loadCustomers,
+    CustomerActions.loadCustomer,
+    CustomerActions.createCustomer,
+    CustomerActions.updateCustomer,
+    (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+  ),
   on(CustomerActions.loadCustomersSuccess, (state, action) =>
     adapter.setAll(action.customers, {
       ...state,
       loading: false,
     })
   ),
-  on(CustomerActions.loadCustomersFailure, (state, action) => {
-    return {
+  on(
+    CustomerActions.loadCustomersFailure,
+    CustomerActions.loadCustomerFailure,
+    CustomerActions.createCustomerFailure,
+    CustomerActions.updateCustomerFailure,
+    (state, action) => {
+      return {
+        ...state,
+        error: action.error,
+      };
+    }
+  ),
+
+  on(CustomerActions.loadCustomerSuccess, (state, { customer }) =>
+    adapter.addOne(customer, {
       ...state,
-      error: action.error,
-    };
-  }),
+      loading: false,
+    })
+  ),
   /**
    * ADD CUSTOMERS
    */
-  on(CustomerActions.createCustomer, (state, action) => {
+
+  on(CustomerActions.createCustomerSuccess, (state, { customer }) => {
+    return adapter.addOne(customer, {
+      ...state,
+      loading: false,
+    });
+  }),
+
+  /**
+   * REMOVE CUSTOMERS
+   */
+  on(CustomerActions.removeCustomer, (state, action) => {
     return {
       ...state,
       loading: true,
     };
   }),
-  on(CustomerActions.createCustomerSuccess, (state, { customer }) => {
-    return adapter.addOne(customer, {
+  on(CustomerActions.removeCustomerSuccess, (state, { id }) => {
+    return adapter.removeOne(id, {
       ...state,
       loading: false,
     });
@@ -60,6 +90,10 @@ export const reducer = createReducer(
       ...state,
       loading: false,
     };
+  }),
+
+  on(CustomerActions.updateCustomerSuccess, (state, { customer }) => {
+    return adapter.upsertOne(customer, state);
   })
   // on(CustomerActions.upsertCustomer,
   //   (state, action) => adapter.upsertOne(action.customer, state)

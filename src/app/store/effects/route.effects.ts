@@ -25,12 +25,18 @@ export class RouteEffects {
       this.actions$.pipe(
         ofType(fromAuthActions.logoutUser),
         tap(() => {
-          localStorage.removeItem('fakeAccessToken');
+          this.clearStorage();
           return this.route.navigate([routes.AUTH]);
         })
       ),
     { dispatch: false }
   );
+
+  // clear state/table data, accessToken and sign-out specific data
+  private clearStorage(): void {
+    localStorage.removeItem('fakeAccessToken');
+    localStorage.removeItem('customersTableState');
+  }
 
   constructor(private actions$: Actions, private route: Router) {}
 }

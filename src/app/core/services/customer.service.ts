@@ -21,4 +21,12 @@ export class CustomerService {
   createCustomer(customer: Customer): Observable<any> {
     return this.http.post(environment.baseUrl + '/api/customers', customer);
   }
+
+  updateCustomer(customer: Customer, customerId: number): Observable<any> {
+    return this.http.put(environment.baseUrl + '/api/customers/' + customerId, customer);
+  }
+
+  removeCustomer(id: string): Observable<any> {
+    return this.http.delete(environment.baseUrl + '/api/customers/' + id);
+  }
 }

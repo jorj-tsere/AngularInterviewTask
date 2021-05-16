@@ -5,7 +5,7 @@ import { CustomerRoutingModule } from './customer-routing.module';
 import { customerPageComponents } from './pages';
 import { SharedModule } from '@shared/shared.module';
 import { MessageModule } from 'primeng/message';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 import { TableModule } from 'primeng/table';
 import { ContextMenuModule } from 'primeng/contextmenu';
@@ -21,10 +21,19 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import { AddressFormComponent } from './components/address-form/address-form.component';
 import {TabMenuModule} from 'primeng/tabmenu';
 import {MenuItem} from 'primeng/api';
+import { TooltipModule } from 'primeng/tooltip';
+
+import {ConfirmPopupModule} from 'primeng/confirmpopup';
+import { CustomerDetailsWrapperComponent } from './pages/customer-details-wrapper/customer-details-wrapper.component';
+import { CustomerDetailsResolverService } from '@core/resolvers/customer-details-resolver.service';
+import {DividerModule} from 'primeng/divider';
+import { CustomerAccountsComponent } from './pages/customer-accounts/customer-accounts.component';
+import {SplitterModule} from 'primeng/splitter';
+import {CardModule} from 'primeng/card';
 
 
 @NgModule({
-  declarations: [...customerPageComponents, AddressFormComponent],
+  declarations: [...customerPageComponents, AddressFormComponent, CustomerDetailsWrapperComponent, CustomerAccountsComponent],
   imports: [
     CommonModule,
     CustomerRoutingModule,
@@ -42,6 +51,11 @@ import {MenuItem} from 'primeng/api';
     FileUploadModule,
     InputNumberModule,
     TabMenuModule,
+    TooltipModule,
+    ConfirmPopupModule,
+    DividerModule,
+    SplitterModule,
+    CardModule
   ],
   exports: [
     TableModule,
@@ -53,8 +67,13 @@ import {MenuItem} from 'primeng/api';
     FieldsetModule,
     CheckboxModule,
     FileUploadModule,
-    InputNumberModule
+    InputNumberModule,
+    TooltipModule,
+    ConfirmPopupModule,
+    DividerModule,
+    SplitterModule,
+    CardModule
   ],
-  providers: [MessageService],
+  providers: [MessageService, ConfirmationService ],
 })
 export class CustomerModule {}

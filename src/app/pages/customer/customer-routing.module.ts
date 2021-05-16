@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { CustomerDetailsResolverService } from '@core/resolvers/customer-details-resolver.service';
 import { CustomerListResolverService } from '@core/resolvers/customer-list-resolver.service';
 import { CustomerWrapperComponent } from './customer-wrapper/customer-wrapper.component';
-import { CreateCustomerComponent } from './pages/create-customer/create-customer.component';
+import { CreateCustomerComponent } from './pages/customer-details/customer-details.component';
+import { CustomerDetailsWrapperComponent } from './pages/customer-details-wrapper/customer-details-wrapper.component';
 import { CustomerListComponent } from './pages/customer-list/customer-list.component';
 import { UpdateCustomerComponent } from './pages/update-customer/update-customer.component';
 
@@ -18,7 +19,7 @@ const routes: Routes = [
       },
       {
         path: 'list',
-        component: CustomerListComponent,
+        component: CustomerListComponent
       },
       {
         path: 'create',
@@ -26,8 +27,8 @@ const routes: Routes = [
       },
       {
         path: 'edit/:id',
-        component: UpdateCustomerComponent,
-        resolve: { data: CustomerDetailsResolverService },
+        component: CustomerDetailsWrapperComponent,
+        resolve: { myData: CustomerDetailsResolverService }
       },
     ],
   },
