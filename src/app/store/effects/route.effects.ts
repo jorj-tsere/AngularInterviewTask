@@ -3,14 +3,19 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import * as fromAuthActions from '@store/actions/auth.actions';
+import { routes } from '@core-constants';
+import * as fromCustomerActions from '@store/actions/customer.actions';
 
 @Injectable()
 export class RouteEffects {
   goToCustomersPage$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(fromAuthActions.loginSuccess),
-        tap(() => this.route.navigate(['/customers']))
+        ofType(
+          fromAuthActions.loginSuccess,
+          fromCustomerActions.createCustomerSuccess
+        ),
+        tap(() => this.route.navigate([routes.CUSTOMERS]))
       ),
     { dispatch: false }
   );
@@ -21,7 +26,7 @@ export class RouteEffects {
         ofType(fromAuthActions.logoutUser),
         tap(() => {
           localStorage.removeItem('fakeAccessToken');
-          return this.route.navigate(['/auth']);
+          return this.route.navigate([routes.AUTH]);
         })
       ),
     { dispatch: false }

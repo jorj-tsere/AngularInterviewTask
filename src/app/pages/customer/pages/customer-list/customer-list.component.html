@@ -1,22 +1,44 @@
 <div *ngIf="customers">
+  <a
+    pButton
+    routerLink="/customers/create"
+    style="text-decoration: none"
+    label="კლიენტის დამატება"
+    icon="pi pi-plus"
+    class="p-button-text"
+  ></a>
+  <br /><br />
   <div class="card">
-    <h5>Local Storage</h5>
-    <p-table #dt2 [value]="customers" selectionMode="single" [(selection)]="selectedCustomer2" dataKey="id"
-      styleClass="p-datatable-customers" [rows]="1" [paginator]="true" stateStorage="local" stateKey="customersTableState">
+    <p-table
+      #dt2
+      [value]="customers"
+      selectionMode="single"
+      [(selection)]="selectedCustomer2"
+      dataKey="id"
+      styleClass="p-datatable-customers"
+      [rows]="1"
+      [paginator]="true"
+      stateStorage="local"
+      stateKey="customersTableState"
+    >
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="name">Name <p-sortIcon field="lastName"></p-sortIcon>
+          <th pSortableColumn="name">
+            Name <p-sortIcon field="lastName"></p-sortIcon>
           </th>
-          <th pSortableColumn="lastName">lastNa <p-sortIcon field="lastName"></p-sortIcon>
+          <th pSortableColumn="lastName">
+            lastNa <p-sortIcon field="lastName"></p-sortIcon>
           </th>
-          <th pSortableColumn="lastName">Representative <p-sortIcon field="lastName"></p-sortIcon>
+          <th pSortableColumn="lastName">
+            Representative <p-sortIcon field="lastName"></p-sortIcon>
           </th>
-          <th pSortableColumn="lastName">Status <p-sortIcon field="status"></p-sortIcon>
+          <th pSortableColumn="lastName">
+            Status <p-sortIcon field="status"></p-sortIcon>
           </th>
         </tr>
         <tr>
           <th>
-            <!-- <input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" [value]="dt2.filters['name']?.value" placeholder="Search by Name" class="p-column-filter"> -->
+            <!-- <input pInputText type="text" (input)="dt2.filter($event.target.value, 'name', 'contains')" [value]="dt2.filters['name']?.value" placeholder="Search by Name" class="p-column-filter"> -->
           </th>
           <th>
             <!-- <input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" [value]="dt2.filters['country.name']?.value" placeholder="Search by Country" class="p-column-filter"> -->
@@ -33,19 +55,19 @@
         <tr [pSelectableRow]="customer">
           <td>
             <!-- <span class="p-column-title">Name</span> -->
-            {{customer.firstName}} {{customer.lastName}}
+            {{ customer.firstName }} {{ customer.lastName }}
           </td>
           <td>
             <!-- <span class="p-column-title">personal Number</span> -->
-            <span class="image-text">{{customer.personalNumber}}</span>
+            <span class="image-text">{{ customer.personalNumber }}</span>
           </td>
           <td>
             <!-- <span class="p-column-title">phone</span> -->
-            <span class="image-text">{{customer.phone}}</span>
+            <span class="image-text">{{ customer.phone }}</span>
           </td>
           <td>
             <!-- <span class="p-column-title">gender</span> -->
-            <span [class]="'customer-badge'">{{customer.gender}}</span>
+            <span [class]="'customer-badge'">{{ customer.gender }}</span>
           </td>
         </tr>
       </ng-template>

@@ -19,7 +19,9 @@ export const initialState: CustomerState = adapter.getInitialState({
 
 export const reducer = createReducer(
   initialState,
-
+  /**
+   * LOAD CUSTOMERS
+   */
   on(CustomerActions.loadCustomers, (state) => {
     return {
       ...state,
@@ -37,10 +39,28 @@ export const reducer = createReducer(
       ...state,
       error: action.error,
     };
+  }),
+  /**
+   * ADD CUSTOMERS
+   */
+  on(CustomerActions.createCustomer, (state, action) => {
+    return {
+      ...state,
+      loading: true,
+    };
+  }),
+  on(CustomerActions.createCustomerSuccess, (state, { customer }) => {
+    return adapter.addOne(customer, {
+      ...state,
+      loading: false,
+    });
+  }),
+  on(CustomerActions.createCustomerFailure, (state, action) => {
+    return {
+      ...state,
+      loading: false,
+    };
   })
-  // on(CustomerActions.addCustomer,
-  //   (state, action) => adapter.addOne(action.customer, state)
-  // ),
   // on(CustomerActions.upsertCustomer,
   //   (state, action) => adapter.upsertOne(action.customer, state)
   // ),

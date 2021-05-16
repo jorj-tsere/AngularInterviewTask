@@ -3,6 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { tap } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 import * as fromAuthActions from '@store/actions/auth.actions';
+import * as fromCustomer from '@store/actions/customer.actions';
 
 @Injectable()
 export class AlertEffects {
@@ -50,6 +51,24 @@ export class AlertEffects {
       ),
     { dispatch: false }
   );
+
+
+  createCustomerSuccessMsg$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(fromCustomer.createCustomerSuccess),
+        tap(() => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'კლიენტი წარმატებით შეიქმნა',
+            detail: 'Via MessageService',
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
+
   constructor(
     private actions$: Actions,
     private messageService: MessageService

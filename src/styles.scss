@@ -7,3 +7,24 @@
   align-items: baseline !important;
   line-height: 1.3;
 }
+
+
+// .field-error {
+//   // min-height: 40px;
+// }
+
+p-dropdown.ng-invalid:not(form) > div {
+  border: 1px solid #D40000;
+}
+
+p-dropdown.ng-invalid.ng-touched.ui-inputwrapper-focus:not(form) > div {
+  box-shadow: 0 0 0 0.05em #F40000;
+  border: 1px solid #D40000;
+  border-radius: 2px;
+}
+
+p-dropdown.ng-invalid.ng-untouched.ui-inputwrapper-focus:not(form) > div {
+  box-shadow: 0 0 0 0.05em #F40000;
+  border: 1px solid #D40000;
+  border-radius: 2px;
+}

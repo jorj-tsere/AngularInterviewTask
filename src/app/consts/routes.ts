@@ -1,9 +1,6 @@
 export enum routes {
-  DASHBOARD = '/dashboard',
-  LOGIN = '/user',
-  SET_PASSWORD = '/user/set-password',
-  USERS_LIST = '/users/list',
-  USERS_REGISTER = '/users/register',
-  COMPANIES_LIST = '/companies/list',
-  COMPANY_REGISTER = '/companies/register',
+  CUSTOMERS = '/customers',
+  CUSTOMERS_CREATE = '/customers/create',
+  CUSTOMERS_LIST = '/customers/list',
+  AUTH = '/auth',
 }

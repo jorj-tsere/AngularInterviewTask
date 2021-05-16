@@ -2,9 +2,13 @@ import { createAction, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 import { Customer } from '@core/models';
 
+/**
+ *  CUSTOMER LIST
+ *
+ */
 
 export const loadCustomers = createAction(
-  '[Customer list page -- Customer List page] Load Customers',
+  '[Customer list page -- Customer List page] Load Customers'
 );
 
 export const loadCustomersSuccess = createAction(
@@ -17,6 +21,10 @@ export const loadCustomersFailure = createAction(
   props<{ error: any }>()
 );
 
+/**
+ *  CUSTOMER
+ *
+ */
 
 export const loadCustomer = createAction(
   '[Customer Details Page] Load Customer Details',
@@ -33,8 +41,25 @@ export const loadCustomerFailure = createAction(
   props<{ error: any }>()
 );
 
+/**
+ *  CREATE CUSTOMER
+ *
+ */
 
+export const createCustomer = createAction(
+  '[Create Customer Page] Create Customer',
+  props<{ customer: Customer }>()
+);
 
+export const createCustomerSuccess = createAction(
+  '[Create Customer || Effect ] Create Customer Success',
+  props<{ customer: Customer }>()
+);
+
+export const createCustomerFailure = createAction(
+  '[Create Customer || Effect] Load Customer Failure',
+  props<{ error: any }>()
+);
 
 // export const addUsersPage = createAction(
 //   '[UsersPage/API] Add UsersPage',
@@ -79,9 +104,6 @@ export const loadCustomerFailure = createAction(
 // export const clearUsersPages = createAction(
 //   '[UsersPage/API] Clear UsersPages'
 // );
-
-
-
 
 // export const loadCustomers = createAction(
 //   '[Customer/API] Load Customers',

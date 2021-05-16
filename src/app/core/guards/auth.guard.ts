@@ -11,20 +11,23 @@ import { routes } from '@core-constants';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  public routes: typeof routes = routes;
+  // public routes: typeof routes = routes;
 
-  constructor(
-    private router: Router,
-  ) {}
+  constructor(private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
     const user = localStorage.getItem('fakeAccessToken');
     if (!user) {
-      this.router.navigate([this.routes.LOGIN], { queryParams: { returnUrl: state.url } });
+      this.router.navigate([routes.AUTH], {
+        queryParams: { returnUrl: state.url },
+      });
       return false;
     }
     return true;

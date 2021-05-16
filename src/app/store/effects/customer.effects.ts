@@ -41,6 +41,22 @@ export class CustomerEffects {
     );
   });
 
+  createCustomer$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromCustomerActions.createCustomer),
+      mergeMap((action) =>
+        this.customerSerive.createCustomer(action.customer).pipe(
+          map((customer: Customer) =>
+            fromCustomerActions.createCustomerSuccess({ customer })
+          ),
+          catchError((error: Error) =>
+            of(fromCustomerActions.createCustomerFailure({ error }))
+          )
+        )
+      )
+    );
+  });
+
   constructor(
     private actions$: Actions,
     private customerSerive: CustomerService

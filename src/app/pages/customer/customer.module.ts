@@ -17,9 +17,14 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import {FileUploadModule} from 'primeng/fileupload';
+import {InputNumberModule} from 'primeng/inputnumber';
+import { AddressFormComponent } from './components/address-form/address-form.component';
+import {TabMenuModule} from 'primeng/tabmenu';
+import {MenuItem} from 'primeng/api';
+
 
 @NgModule({
-  declarations: [...customerPageComponents],
+  declarations: [...customerPageComponents, AddressFormComponent],
   imports: [
     CommonModule,
     CustomerRoutingModule,
@@ -34,7 +39,9 @@ import {FileUploadModule} from 'primeng/fileupload';
     FieldsetModule,
     CheckboxModule,
     FormsModule,
-    FileUploadModule
+    FileUploadModule,
+    InputNumberModule,
+    TabMenuModule,
   ],
   exports: [
     TableModule,
@@ -45,7 +52,8 @@ import {FileUploadModule} from 'primeng/fileupload';
     InputTextModule,
     FieldsetModule,
     CheckboxModule,
-    FileUploadModule
+    FileUploadModule,
+    InputNumberModule
   ],
   providers: [MessageService],
 })

@@ -1,0 +1,101 @@
+<!-- იურიდიული მისამართი -->
+
+<p-fieldset
+  [styleClass]="'p-align-start'"
+  [legend]="
+    +formType === +addressFormTypes.LEGAL
+      ? 'იურიდიული მისამართი'
+      : 'ფაქტიური მისამართი'
+  "
+>
+  <form [formGroup]="addressFormGroup">
+    <div class="p-fluid p-formgrid p-grid p-align-start">
+      <div class="p-field p-col-12 p-md-3">
+        <label for="country_legal">ქვეყანა</label>
+        <input
+          id="country_legal"
+          class="p-inputtext-sm"
+          formControlName="country"
+          type="text"
+          pInputText
+        />
+        <div class="field-error">
+          <p
+            class="field-error--description"
+            *ngIf="
+              addressFormGroup.controls.country.touched &&
+              addressFormGroup.controls.country.errors?.required
+            "
+          >
+            <p-message
+              severity="error"
+              [styleClass]="'default-form-error'"
+              text="სავალდებულოა"
+            ></p-message>
+          </p>
+        </div>
+      </div>
+      <div class="p-field p-col-12 p-md-3">
+        <label for="city_legal">ქალაქი</label>
+        <input
+          id="city_legal"
+          formControlName="city"
+          class="p-inputtext-sm"
+          type="text"
+          pInputText
+        />
+        <div class="field-error">
+          <p
+            class="field-error--description"
+            *ngIf="
+              addressFormGroup.controls.city.touched &&
+              addressFormGroup.controls.city.errors?.required
+            "
+          >
+            <p-message
+              severity="error"
+              [styleClass]="'default-form-error'"
+              text="სავალდებულოა"
+            ></p-message>
+          </p>
+        </div>
+      </div>
+      <div class="p-field p-col-12 p-md-3">
+        <label for="address_legal">მისამართი</label>
+        <input
+          id="address_legal"
+          class="p-inputtext-sm"
+          formControlName="address"
+          type="text"
+          pInputText
+        />
+        <div class="field-error">
+          <p
+            class="field-error--description"
+            *ngIf="
+              addressFormGroup.controls.address.touched &&
+              addressFormGroup.controls.address.errors?.required
+            "
+          >
+            <p-message
+              severity="error"
+              [styleClass]="'default-form-error'"
+              text="სავალდებულოა"
+            ></p-message>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div
+        *ngIf="+formType === +addressFormTypes.LEGAL"
+        class="p-field"
+      >
+        <p-checkbox
+          (onChange)="changed($event)"
+          label="იდენტური ფაქტიური მისამართი"
+        ></p-checkbox>
+      </div>
+    <!-- <p>addressFormGroup = {{ addressFormGroup.value | json }}</p> -->
+  </form>
+</p-fieldset>

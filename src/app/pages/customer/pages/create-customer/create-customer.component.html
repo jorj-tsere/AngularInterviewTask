@@ -1,16 +1,25 @@
-<a routerLink="/customers">back</a> <br /><br />
-<form [formGroup]="form" *ngIf="lookups">
+<a
+  pButton
+  routerLink="/customers/list"
+  style="text-decoration: none"
+  label="უკან დაბრუნება"
+  icon="pi pi-arrow-left"
+  class="p-button-text"
+></a>
+<br /><br />
+<form [formGroup]="form" *ngIf="lookups" (submit)="submit()">
   <div class="p-fluid p-formgrid p-grid">
+    <!-- სახელი -->
     <div class="p-field p-col-3 p-md-3">
       <label for="firstname">სახელი</label>
       <input
         id="firstname"
         formControlName="firstName"
         class="p-inputtext-sm"
+        [class.ng-touched]="firstName.touched"
         type="text"
         pInputText
       />
-
       <div class="field-error">
         <p
           class="field-error--description"
@@ -52,6 +61,7 @@
         </p>
       </div>
     </div>
+    <!-- გვარი -->
     <div class="p-field p-col-3 p-md-3">
       <label for="lastname">გვარი</label>
       <input
@@ -102,98 +112,131 @@
         </p>
       </div>
     </div>
+    <!-- სქესი -->
     <div class="p-field p-col-3 p-md-3">
       <label for="genderId">სქესი</label>
       <p-dropdown
         inputId="genderId"
         [options]="lookups.gender"
+        [class.ng-invalid]="!genderId.valid && genderId.touched"
+        [class.ng-valid]="genderId.valid"
+        (onChange)="genderId.setValue(+$event.value.id)"
+        (onBlur)="genderId.markAsTouched()"
         class="p-inputtext-sm"
-        placeholder="Select"
+        placeholder="აირჩიეთ მნიშვნელობა"
         optionLabel="name"
       ></p-dropdown>
+      <div class="field-error">
+        <p
+          class="field-error--description"
+          *ngIf="(genderId.touched || submitted) && genderId.errors?.required"
+        >
+          <p-message
+            severity="error"
+            [styleClass]="'default-form-error'"
+            text="სავალდებულოა"
+          ></p-message>
+        </p>
+      </div>
     </div>
+    <!-- პირადი ნომერი -->
     <div class="p-field p-col-3 p-md-3">
       <label for="personalNumber">პირადი ნომერი</label>
       <input
         id="personalNumber"
+        formControlName="personalNumber"
         class="p-inputtext-sm"
+        type="text"
+        maxlength="11"
+        pInputText
+      />
+      <div class="field-error">
+        <p
+          class="field-error--description"
+          *ngIf="
+            (personalNumber.touched || submitted) &&
+            personalNumber.errors?.required
+          "
+        >
+          <p-message
+            severity="error"
+            [styleClass]="'default-form-error'"
+            text="სავალდებულოა"
+          ></p-message>
+        </p>
+        <p
+          class="field-error--description"
+          *ngIf="
+            (personalNumber.touched || submitted) &&
+            !personalNumber.errors?.required &&
+            personalNumber.errors?.pattern
+          "
+        >
+          <p-message
+            severity="error"
+            [styleClass]="'default-form-error'"
+            text="არავალიდური ფორმატი. 11 ციფრი"
+          ></p-message>
+        </p>
+      </div>
+    </div>
+    <!-- მობილური -->
+    <div class="p-field p-col-3 p-md-3">
+      <label for="phone">მობილური</label>
+      <input
+        id="phone"
+        class="p-inputtext-sm"
+        formControlName="phone"
         type="text"
         pInputText
       />
-    </div>
-    <div class="p-field p-col-3 p-md-3">
-      <label for="phone">მობილური</label>
-      <input id="phone" class="p-inputtext-sm" type="text" pInputText />
+      <div class="field-error">
+        <p
+          class="field-error--description"
+          *ngIf="(phone.touched || submitted) && phone.errors?.required"
+        >
+          <p-message
+            severity="error"
+            [styleClass]="'default-form-error'"
+            text="სავალდებულოა"
+          ></p-message>
+        </p>
+        <p
+          class="field-error--description"
+          *ngIf="
+            (phone.touched || submitted) &&
+            !phone.errors?.required &&
+            phone.errors?.invalid_format
+          "
+        >
+          <p-message
+            severity="error"
+            [styleClass]="'default-form-error'"
+            [text]="phone.errors?.invalid_format"
+          ></p-message>
+        </p>
+      </div>
     </div>
   </div>
 
-  <p-fieldset legend="იურიდიული მისამართი">
-    <div class="p-fluid p-formgrid p-grid p-align-center">
-      <div class="p-field p-col-12 p-md-3">
-        <label for="country_legal">ქვეყანა</label>
-        <input
-          id="country_legal"
-          class="p-inputtext-sm"
-          type="text"
-          pInputText
-        />
-      </div>
-      <div class="p-field p-col-12 p-md-3">
-        <label for="city_legal">ქალაქი</label>
-        <input id="city_legal" class="p-inputtext-sm" type="text" pInputText />
-      </div>
-      <div class="p-field p-col-12 p-md-3">
-        <label for="address_legal">მისამართი</label>
-        <input
-          id="address_legal"
-          class="p-inputtext-sm"
-          type="text"
-          pInputText
-        />
-      </div>
-      <div class="p-field p-col-12 p-md-3">
-        <p-checkbox
-          label="იგივე ფაქტიური"
-          (onChange)="changed($event)"
-          value="false"
-        ></p-checkbox>
-      </div>
-    </div>
-  </p-fieldset>
-
-  <p-fieldset legend="ფაქტიური მისამართი">
-    <div class="p-fluid p-formgrid p-grid p-align-center">
-      <div class="p-field p-col-12 p-md-3">
-        <label for="country_actual">ქვეყანა</label>
-        <input
-          id="country_actual"
-          class="p-inputtext-sm"
-          type="text"
-          pInputText
-        />
-      </div>
-      <div class="p-field p-col-12 p-md-3">
-        <label for="city_actual">ქალაქი</label>
-        <input id="city_actual" class="p-inputtext-sm" type="text" pInputText />
-      </div>
-      <div class="p-field p-col-12 p-md-3">
-        <label for="address_actual">მისამართი</label>
-        <input
-          id="address_actual"
-          class="p-inputtext-sm"
-          type="text"
-          pInputText
-        />
-      </div>
-    </div>
-  </p-fieldset>
-
-  <p>selectedImage = {{ selectedImage | json }}</p>
-
+  <!-- იურიდიული მისამართი -->
+  <app-address-form
+    (userHasIdenticaladdresses)="updateAddresses($event)"
+    [addressFormGroup]="legalAddress"
+    [formType]="addressFormTypes.LEGAL"
+  ></app-address-form>
+  <!-- ფაქტიური მისამართი -->
+  <app-address-form
+    [addressFormGroup]="actualAddress"
+    [formType]="addressFormTypes.ACTUAL"
+  ></app-address-form>
+  <br /><br />
+  <!-- ფოტოსურათი -->
   <div class="p-fluid p formgrid p-grid">
     <!-- mode="basic" -->
     <p-fileUpload
       name="myfile[]"
+      chooseLabel="აირჩიეთ ფაილი"
       [accept]="'image/*'"
       [auto]="true"
       [customUpload]="true"
@@ -201,10 +244,6 @@
       (uploadHandler)="myUploader($event)"
     ></p-fileUpload>
   </div>
-
-  <code>
-    firstName: string; lastName: string; gender: string; genderId: string;
-    personalNumber: string; phone: string; legalAddress: Address; actualAddress:
-    Address; imageBase64: string;
-  </code>
+  <br /><br />
+  <button pButton type="submit" label="Submit" class="p-button-lg"></button>
 </form>

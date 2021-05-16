@@ -47,7 +47,7 @@ export function PhoneNumberValidator(
   const elementValue: string = (control.value || '').trim();
   if (elementValue.length !== 9 || !elementValue.startsWith('5')) {
     return {
-      custom_invalid_length: 'არავალიდური ფორმატი. შაბლონი: 5xx xx xx xx',
+      invalid_format: 'არავალიდური ფორმატი. შაბლონი: 5xx xx xx xx',
     };
   }
   return null;
