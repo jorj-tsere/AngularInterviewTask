@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
     private store: Store<AppState>,
     private jwtHelper: JwtHelperService
   ) {
+
     const accessToken = this.jwtHelper.tokenGetter();
     if (accessToken) {
       const user = this.jwtHelper.decodeToken(accessToken);

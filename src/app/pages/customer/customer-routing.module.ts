@@ -6,8 +6,8 @@ import { CustomerWrapperComponent } from './customer-wrapper/customer-wrapper.co
 import { CustomerDetailsComponent } from './pages/customer-details/customer-details.component';
 import { CustomerDetailsWrapperComponent } from './pages/customer-details-wrapper/customer-details-wrapper.component';
 import { CustomerListComponent } from './pages/customer-list/customer-list.component';
-import { UpdateCustomerComponent } from './pages/update-customer/update-customer.component';
 import { CustomerAccountsComponent } from './pages/customer-accounts/customer-accounts.component';
+import { CustomerAccountsResolverService } from './resolver/customer-accounts-resolver.service';
 
 const routes: Routes = [
   {
@@ -20,7 +20,7 @@ const routes: Routes = [
       },
       {
         path: 'list',
-        component: CustomerListComponent
+        component: CustomerListComponent,
       },
       {
         path: 'create',
@@ -31,19 +31,20 @@ const routes: Routes = [
         component: CustomerDetailsWrapperComponent,
         resolve: { customerDetailsData: CustomerDetailsResolverService },
         children: [
-            {
-              path: 'details',
-              component: CustomerDetailsComponent,
-            },
-            {
-              path: '',
-              redirectTo: 'details',
-            },
-            {
-              path: 'accounts',
-              component: CustomerAccountsComponent,
-            },
-        ]
+          {
+            path: 'details',
+            component: CustomerDetailsComponent,
+          },
+          {
+            path: '',
+            redirectTo: 'details',
+          },
+          {
+            path: 'accounts',
+            component: CustomerAccountsComponent,
+            resolve: { accounts: CustomerAccountsResolverService },
+          },
+        ],
       },
     ],
   },

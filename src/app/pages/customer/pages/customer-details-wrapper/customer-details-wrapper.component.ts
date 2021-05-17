@@ -8,26 +8,26 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./customer-details-wrapper.component.scss'],
 })
 export class CustomerDetailsWrapperComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private router: Router) {
-    console.log(this.route.snapshot);
-    // this.router.events.subscribe((val) => {
-    //   if (val instanceof RoutesRecognized) {
-    //     console.log(val.state.root.firstChild.params);
-    //   }
-    // });
-    console.log('CustomerDetailsWrapperComponent', new Date().getTime());
-  }
-
   items: MenuItem[];
-
-  ngOnInit(): void {
+  activeItem: MenuItem;
+  constructor(private route: ActivatedRoute, private router: Router) {
     this.items = [
-      { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: '/details' },
       {
-        label: 'Calendar',
-        icon: 'pi pi-fw pi-calendar',
-        routerLink: '/accounts',
+        label: 'კლიენტის დეტალები',
+        icon: 'pi pi-user',
+        routerLink: './details',
+      },
+      {
+        label: 'ანგარიშები',
+        icon: 'pi pi-credit-card',
+        routerLink: './accounts',
       },
     ];
+    this.activeItem = !!this.router.url.endsWith('/accounts')
+      ? this.items[1]
+      : this.items[0];
+    // this.activeItem
   }
+
+  ngOnInit(): void {}
 }

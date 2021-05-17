@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Customer } from '@core/models';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '@store-barrel';
@@ -16,7 +16,6 @@ import { filter } from 'rxjs/operators';
 })
 export class CustomerListComponent implements OnInit, OnDestroy {
   // public resolverData$: Observable<any>;
-
   customers: Customer[] = [];
 
   customers1: Customer[] = [];
@@ -70,15 +69,10 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     this.store.dispatch(removeCustomer({ id: clientId + '' }));
   }
 
-  goToCustomerDetails(id: string): void {
-    console.log(`/customers/details/${id}`);
-    this.route.navigateByUrl(`/customers/details/${id}`);
-  }
-
   constructor(
     private store: Store<AppState>,
     private confirmationService: ConfirmationService,
-    private route: Router
+    private route: ActivatedRoute
   ) {
     const sub$ = this.store
       .pipe(select(selectAllCustomers))

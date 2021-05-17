@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -27,7 +27,8 @@ import {
   updateCustomer,
 } from '@store/actions/customer.actions';
 import { selectEntity } from '@store/selectors/customer.selectors';
-import { Observable } from 'rxjs';
+import { Lookup } from '@store/selectors/lookup.selectors';
+import { Observable, Subscription } from 'rxjs';
 import { filter, first, tap } from 'rxjs/operators';
 
 @Component({
@@ -35,7 +36,7 @@ import { filter, first, tap } from 'rxjs/operators';
   templateUrl: './customer-details.component.html',
   styleUrls: ['./customer-details.component.scss'],
 })
-export class CustomerDetailsComponent implements OnInit {
+export class CustomerDetailsComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public lookups: Lookups;
   public equalAddresses = false;
@@ -45,22 +46,17 @@ export class CustomerDetailsComponent implements OnInit {
   fromEditInterface = false;
   customerId: number;
   addressFormTypes: typeof addressFormTypes = addressFormTypes;
+  sub$: Subscription;
 
   constructor(
     private fb: FormBuilder,
-    private lookupService: LookupService,
     private store: Store<AppState>,
     private route: ActivatedRoute,
     private router: Router
   ) {
     this.fromEditInterface = this.router.url.indexOf('/edit') !== -1;
     this.customerId = this.route.parent?.snapshot.params.id;
-    console.log('this.route.parent?.snapshot', this.route.parent?.snapshot);
 
-    // customerDetailsData
-    // this.customer$ = this.store.pipe(
-    //   select(selectEntity, { id: this.customerId })
-    // );
     this.form = this.fb.group({
       firstName: [
         null,
@@ -101,7 +97,6 @@ export class CustomerDetailsComponent implements OnInit {
       customerImage: [null],
     });
 
-
     this.route.parent?.data.subscribe((data) => {
       this.customer = data.customerDetailsData;
       this.setValues();
@@ -109,33 +104,36 @@ export class CustomerDetailsComponent implements OnInit {
   }
 
   setValues(): void {
-      this.firstName.setValue(this.customer.firstName);
-      this.lastName.setValue(this.customer.lastName);
-      this.customerImage.setValue(this.customer.customerImage);
-      this.genderId.setValue(+this.customer.genderId);
-      this.personalNumber.setValue(this.customer.personalNumber);
-      this.phone.setValue(this.customer.phone);
-      // set Legal Address
-      this.legalAddress.controls.address.setValue(
-        this.customer.legalAddress.address
-      );
-      this.legalAddress.controls.country.setValue(
-        this.customer.legalAddress.country
-      );
-      this.legalAddress.controls.city.setValue(this.customer.legalAddress.city);
-      // set Actual Address
-      this.actualAddress.controls.address.setValue(
-        this.customer.actualAddress.address
-      );
-      this.actualAddress.controls.country.setValue(
-        this.customer.actualAddress.country
-      );
-      this.actualAddress.controls.city.setValue(this.customer.actualAddress.city);
-
+    this.firstName.setValue(this.customer.firstName);
+    this.lastName.setValue(this.customer.lastName);
+    this.customerImage.setValue(this.customer.customerImage);
+    this.genderId.setValue(+this.customer.genderId);
+    this.personalNumber.setValue(this.customer.personalNumber);
+    this.phone.setValue(this.customer.phone);
+    // set Legal Address
+    this.legalAddress.controls.address.setValue(
+      this.customer.legalAddress.address
+    );
+    this.legalAddress.controls.country.setValue(
+      this.customer.legalAddress.country
+    );
+    this.legalAddress.controls.city.setValue(this.customer.legalAddress.city);
+    // set Actual Address
+    this.actualAddress.controls.address.setValue(
+      this.customer.actualAddress.address
+    );
+    this.actualAddress.controls.country.setValue(
+      this.customer.actualAddress.country
+    );
+    this.actualAddress.controls.city.setValue(this.customer.actualAddress.city);
   }
 
   ngOnInit(): void {
-    this.getCollectionLists();
+    this.store.pipe(select(Lookup)).subscribe((lookups: Lookups) => {
+      if (lookups.loaded) {
+        this.lookups = Object.assign({}, lookups);
+      }
+    });
   }
 
   updateAddresses(checked: boolean): void {
@@ -172,12 +170,6 @@ export class CustomerDetailsComponent implements OnInit {
     return this.form.controls.customerImage;
   }
 
-  // tslint:disable-next-line:typedef
-  async getCollectionLists() {
-    this.lookups = await this.lookupService.lookups().toPromise();
-    console.log('this.lookups', this.lookups);
-  }
-
   changed(ev: boolean): void {
     console.log(ev);
   }
@@ -207,5 +199,11 @@ export class CustomerDetailsComponent implements OnInit {
       );
     }
     // console.log('submit');
+  }
+
+  ngOnDestroy(): void {
+    if (this.sub$) {
+      this.sub$.unsubscribe();
+    }
   }
 }

@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Lookups } from '@core/models';
-import { LookupService } from '@core/services/lookup.service';
+import { Account, Lookups } from '@core/models';
+import { AccountService } from '@core/services/account.service';
+import { select, Store } from '@ngrx/store';
+import { AppState } from '@store-barrel';
+import * as fromLookupSelectors from '@store/selectors/lookup.selectors';
+import { Subscription } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -9,25 +14,61 @@ import { v4 as uuidv4 } from 'uuid';
   templateUrl: './customer-accounts.component.html',
   styleUrls: ['./customer-accounts.component.scss'],
 })
-export class CustomerAccountsComponent implements OnInit {
+export class CustomerAccountsComponent implements OnInit, OnDestroy {
   customerId: number;
   lookups: Lookups;
+  accounts: any[];
   uuid = uuidv4();
+  subcsriptions$: Subscription[] = [];
 
   constructor(
     private route: ActivatedRoute,
-    private lookupService: LookupService
+    private store: Store<AppState>,
+    private fb: FormBuilder,
+    private accountService: AccountService
   ) {
-    console.log();
-    this.customerId = this.route.snapshot.params.id;
+    this.customerId = this.route.parent?.snapshot.params.id;
+    const accountsSubscription$: Subscription = this.route.data.subscribe(
+      (data) => {
+        this.accounts = data.accounts;
+      }
+    );
+    this.subcsriptions$.push(accountsSubscription$);
+  }
+
+  ngOnDestroy(): void {
+    if (this.subcsriptions$) {
+      this.subcsriptions$.forEach((subscription$: Subscription) => {
+        subscription$.unsubscribe();
+      });
+    }
+  }
+
+  async addAccount(account: Account): Promise<void> {
+    const createResponse = await this.accountService
+      .createNewAccount(account)
+      .toPromise();
+    if (createResponse) {
+      const response: Account[] = await this.accountService
+        .getAccountsByCustomerId(this.customerId)
+        .toPromise();
+      this.accounts = [...response];
+    }
   }
 
   ngOnInit(): void {
-    this.getCollectionLists();
-  }
-  // tslint:disable-next-line:typedef
-  async getCollectionLists() {
-    this.lookups = await this.lookupService.lookups().toPromise();
-    console.log('this.lookups', this.lookups);
+    const readyObservable$ = this.store.pipe(
+      select(fromLookupSelectors.Lookup)
+    );
+
+    const lookupSubscription$ = readyObservable$.subscribe(
+      (lookups: Lookups) => {
+        if (lookups.loaded) {
+          this.lookups = Object.assign({}, lookups);
+        }
+      }
+    );
+
+    this.subcsriptions$.push(lookupSubscription$);
   }
 }

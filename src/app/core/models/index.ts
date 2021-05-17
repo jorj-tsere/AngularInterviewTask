@@ -5,3 +5,4 @@ export * from './customer';
 export * from './address';
 export * from './list-object';
 export * from './lookups';
+export * from './account';

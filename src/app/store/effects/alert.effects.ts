@@ -4,6 +4,7 @@ import { tap } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 import * as fromAuthActions from '@store/actions/auth.actions';
 import * as fromCustomer from '@store/actions/customer.actions';
+import { accountAlredyExists } from '@store/actions/account.actions';
 
 @Injectable()
 export class AlertEffects {
@@ -15,6 +16,21 @@ export class AlertEffects {
           this.messageService.add({
             severity: 'success',
             summary: 'Welcome Back ' + action.user.username + ' !',
+            detail: 'Via MessageService',
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
+  accountAlredyExists$ =  createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(accountAlredyExists),
+        tap((action) => {
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'ანგარიში უკვე არსებობს!',
             detail: 'Via MessageService',
           });
         })

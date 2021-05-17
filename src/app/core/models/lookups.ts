@@ -5,4 +5,5 @@ export interface Lookups {
   account_types: ListObject[];
   ccy: ListObject[];
   gender: ListObject[];
+  loaded?: boolean;
 }

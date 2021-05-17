@@ -190,14 +190,44 @@
   },
   "accounts": [
     {
-      "id": 1,
-      "clientId": 1,
-      "acountTypeId": 1,
-      "acountType": "სამომხმარებლო",
+      "customerId": "4",
+      "accountTypeId": 1,
+      "accountType": "მიმდინარე",
       "ccyId": 1,
       "ccy": "GEL",
       "accountStatusID": 1,
-      "accountStatus": "აქტიური"
+      "accountStatus": "აქტიური",
+      "id": 1
+    },
+    {
+      "customerId": "4",
+      "accountTypeId": 1,
+      "accountType": "მიმდინარე",
+      "ccyId": 2,
+      "ccy": "USD",
+      "accountStatusID": 1,
+      "accountStatus": "აქტიური",
+      "id": 2
+    },
+    {
+      "customerId": "4",
+      "accountTypeId": 1,
+      "accountType": "მიმდინარე",
+      "ccyId": 3,
+      "ccy": "EUR",
+      "accountStatusID": 1,
+      "accountStatus": "აქტიური",
+      "id": 3
+    },
+    {
+      "customerId": "4",
+      "accountTypeId": 1,
+      "accountType": "მიმდინარე",
+      "ccyId": 4,
+      "ccy": "RUB",
+      "accountStatusID": 1,
+      "accountStatus": "აქტიური",
+      "id": 4
     }
   ]
 }

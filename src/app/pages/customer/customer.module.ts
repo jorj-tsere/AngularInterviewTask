@@ -26,19 +26,24 @@ import { DividerModule } from 'primeng/divider';
 import { CustomerAccountsComponent } from './pages/customer-accounts/customer-accounts.component';
 import { SplitterModule } from 'primeng/splitter';
 import { CardModule } from 'primeng/card';
+import { CustomerAccountsResolverService } from './resolver/customer-accounts-resolver.service';
+import { CreateNewAccountFormComponent } from './components/create-new-account-form/create-new-account-form.component';
+import { MessagesModule } from 'primeng/messages';
 
 @NgModule({
   declarations: [
     ...customerPageComponents,
     AddressFormComponent,
     CustomerDetailsWrapperComponent,
-    CustomerAccountsComponent
+    CustomerAccountsComponent,
+    CreateNewAccountFormComponent,
   ],
   imports: [
     CommonModule,
     CustomerRoutingModule,
     SharedModule,
     MessageModule,
+    MessagesModule,
     TableModule,
     ContextMenuModule,
     ButtonModule,
@@ -73,7 +78,12 @@ import { CardModule } from 'primeng/card';
     DividerModule,
     SplitterModule,
     CardModule,
+    MessagesModule
   ],
-  providers: [MessageService, ConfirmationService],
+  providers: [
+    MessageService,
+    ConfirmationService,
+    CustomerAccountsResolverService,
+  ],
 })
 export class CustomerModule {}

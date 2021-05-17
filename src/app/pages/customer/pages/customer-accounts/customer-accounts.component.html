@@ -1,3 +1,14 @@
+{{ accounts | json }}
+
+<div *ngIf="lookups">
+  <app-create-new-account-form
+    [lookups]="lookups"
+    [accounts]="accounts"
+    (addAccountEvent)="addAccount($event)"
+  >
+  </app-create-new-account-form>
+</div>
+
 <div class="account-warpper">
   <div class="p-grid account--active">
     <div class="p-col-12 p-md-6 p-lg-3">
@@ -8,7 +19,7 @@
         styleClass="p-card-shadow"
       >
         <p>
-         {{ uuid }}
+          {{ uuid }}
         </p>
         <ng-template pTemplate="footer">
           <p-button label="Save" icon="pi pi-check"></p-button>
@@ -35,7 +46,7 @@
         styleClass="p-card-shadow"
       >
         <p>
-         {{ uuid }}
+          {{ uuid }}
         </p>
         <ng-template pTemplate="footer">
           <p-button label="Save" icon="pi pi-check"></p-button>
@@ -62,7 +73,7 @@
         styleClass="p-card-shadow"
       >
         <p>
-         {{ uuid }}
+          {{ uuid }}
         </p>
         <ng-template pTemplate="footer">
           <p-button label="Save" icon="pi pi-check"></p-button>

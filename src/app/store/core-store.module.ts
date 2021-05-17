@@ -9,10 +9,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './effects/auth.effects';
 import { AlertEffects } from './effects/alert.effects';
 import { RouteEffects } from './effects/route.effects';
-import * as FromCustomer from './reducers/customer.reducer';
+import * as fromCustomer from './reducers/customer.reducer';
 import { CustomerEffects } from './effects/customer.effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { CustomSerializer } from './custom-route-serializer';
+import { LookupEffects } from './effects/lookup.effects';
+import * as fromLookup from './reducers/lookup.reducer';
+import { AccountEffects } from './effects/account.effects';
 
 @NgModule({
   declarations: [],
@@ -30,17 +33,23 @@ import { CustomSerializer } from './custom-route-serializer';
       },
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+
     StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.reducer),
+    StoreModule.forFeature(fromLookup.lookupFeatureKey, fromLookup.reducer),
+    StoreModule.forFeature(
+      fromCustomer.customersFeatureKey,
+      fromCustomer.reducer
+    ),
     EffectsModule.forRoot([AlertEffects, RouteEffects]),
-    EffectsModule.forFeature([AuthEffects]),
+    EffectsModule.forFeature([
+      AuthEffects,
+      LookupEffects,
+      CustomerEffects,
+      AccountEffects,
+    ]),
     StoreRouterConnectingModule.forRoot({
       serializer: CustomSerializer,
     }),
-    StoreModule.forFeature(
-      FromCustomer.customersFeatureKey,
-      FromCustomer.reducer
-    ),
-    EffectsModule.forFeature([CustomerEffects]),
   ],
 })
 export class CoreStoreModule {}

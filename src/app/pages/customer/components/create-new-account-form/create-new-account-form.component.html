@@ -1,0 +1,45 @@
+<p-fieldset legend="ახალი ანგარიშის შექმნა" >
+
+<div class="p-grid p-align-end">
+  <div class="p-field p-col-2">
+    <label for="lastname">ანგარიშის ტიპი</label>
+    <p-dropdown
+      inputId="accountTypeId"
+      [options]="lookups.account_types"
+      dataKey="id"
+      [style]="{ width: '100%' }"
+      (onChange)="changeValue('accountType', $event)"
+      [class.ng-invalid]="!accountTypeId.valid && accountTypeId.touched"
+      [class.ng-valid]="accountTypeId.valid"
+      class="p-inputtext-sm"
+      placeholder="აირჩიეთ მნიშვნელობა"
+      optionLabel="name"
+    ></p-dropdown>
+  </div>
+  <div class="p-field p-col-2">
+    <label for="lastname">ვალუტა</label>
+    <p-dropdown
+      inputId="ccyId"
+      [options]="lookups.ccy"
+      dataKey="id"
+      optionLabel="name"
+      [style]="{ width: '100%' }"
+      (onChange)="changeValue('ccy', $event)"
+      [class.ng-invalid]="!ccyId.valid && ccyId.touched"
+      [class.ng-valid]="ccyId.valid"
+      class="p-inputtext-sm"
+      placeholder="აირჩიეთ მნიშვნელობა"
+    ></p-dropdown>
+  </div>
+  <div class="p-field p-col">
+    <button pButton type="button" [disabled]="!newAccountForm.valid"  (click)="submit()" label="დადასტურება"></button>
+    <button
+      pButton
+      type="button"
+      class="p-mx-2"
+      (click)="cancelAccountForm()"
+      label="გაუქმება"
+    ></button>
+  </div>
+</div>
+</p-fieldset>
