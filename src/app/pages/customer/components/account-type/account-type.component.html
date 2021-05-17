@@ -1,0 +1,8 @@
+<div class="p-text-bold p-mt-2">{{ accountType }}</div>
+<div class="p-grid p-my-4">
+  <app-account-card
+    *ngFor="let account of sortedAccounts"
+    [account]="account"
+    class="p-col-3"
+  ></app-account-card>
+</div>

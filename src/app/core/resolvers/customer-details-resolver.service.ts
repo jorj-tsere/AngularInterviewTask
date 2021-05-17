@@ -22,17 +22,12 @@ export class CustomerDetailsResolverService {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> | Promise<any> | any {
-    // tslint:disable-next-line:no-string-literal
     const { id } = route.params;
-    console.log('id', id);
     return this.store.pipe(
       select(selectEntity, { id }),
       tap((customer) => {
         if (!customer) {
-          console.warn('customer not found and dispatched', customer);
           this.store.dispatch(loadCustomer({ id }));
-        } else {
-          console.warn('customer found and not dispatched', customer);
         }
       }),
       filter((customer) => !!customer),

@@ -10,7 +10,6 @@ export const selectAuthState = createFeatureSelector<fromLookup.LookupState>(
 export const isLoaded = createSelector(
   selectAuthState,
   (state: fromLookup.LookupState): boolean => {
-    console.log('state', state);
     return state.loaded;
   }
 );

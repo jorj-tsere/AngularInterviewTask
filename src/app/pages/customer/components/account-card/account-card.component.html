@@ -1,0 +1,36 @@
+<p-card
+  [header]="'#ID ' + account.id"
+  [style]="{ width: '100%', 'margin-bottom': '2em' }"
+>
+  <ng-template pTemplate="header">
+    <p class="p-p-2">
+      <img
+        alt="Card"
+        style="width: 50px"
+        [src]="'/assets/images/flags/' + account.ccy + '.svg'"
+      />
+    </p>
+  </ng-template>
+  <p>
+    <p >სტატუსი: {{ account.accountStatus }}</p>
+    <br/> <br/>
+    <p></p>
+    <button
+    pTooltip="ანგარიშის სტატუსის ცვლილება"
+    (click)="confirmActivateAccountToggle($event)"
+    pButton
+    icon="pi pi-pencil"
+    type="button"
+    class="p-mx-2 p-button-sm p-button-rounded"
+  ></button>
+    <button
+      pTooltip="ანგარიშის წაშლა"
+      (click)="confirm($event)"
+      pButton
+      icon="pi pi-times"
+      type="button"
+      class="p-button-danger p-button-rounded p-mx-2 p-button-sm"
+    ></button>
+
+</p-card>
+<p-confirmPopup></p-confirmPopup>

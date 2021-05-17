@@ -19,6 +19,7 @@ import { MenuModule } from 'primeng/menu';
 import { ToastModule } from 'primeng/toast';
 import {MegaMenuModule} from 'primeng/megamenu';
 import {AvatarModule} from 'primeng/avatar';
+import { SortByPipe } from './pipes/sort-by.pipe';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {AvatarModule} from 'primeng/avatar';
     HeaderComponent,
     LayoutWrapperComponent,
     SidebarComponent,
+    SortByPipe,
   ],
   imports: [
     CommonModule,

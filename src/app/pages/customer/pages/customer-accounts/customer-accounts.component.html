@@ -1,5 +1,3 @@
-{{ accounts | json }}
-
 <div *ngIf="lookups">
   <app-create-new-account-form
     [lookups]="lookups"
@@ -7,87 +5,5 @@
     (addAccountEvent)="addAccount($event)"
   >
   </app-create-new-account-form>
-</div>
-
-<div class="account-warpper">
-  <div class="p-grid account--active">
-    <div class="p-col-12 p-md-6 p-lg-3">
-      <p-card
-        header="გიორგი წერეთელი"
-        subheader="მიმდინარე - GEO"
-        [style]="{ width: '100%' }"
-        styleClass="p-card-shadow"
-      >
-        <p>
-          {{ uuid }}
-        </p>
-        <ng-template pTemplate="footer">
-          <p-button label="Save" icon="pi pi-check"></p-button>
-          <p-button
-            label="Cancel"
-            icon="pi pi-times"
-            styleClass="p-button-secondary"
-            [style]="{ 'margin-left': '.5em' }"
-          ></p-button>
-        </ng-template>
-      </p-card>
-    </div>
-    <div class="p-col-12 p-md-6 p-lg-3">B</div>
-    <div class="p-col-12 p-md-6 p-lg-3">C</div>
-    <div class="p-col-12 p-md-6 p-lg-3">D</div>
-  </div>
-
-  <div class="p-grid account--active">
-    <div class="p-col-12 p-md-6 p-lg-3">
-      <p-card
-        header="გიორგი წერეთელი"
-        subheader="მიმდინარე - GEO"
-        [style]="{ width: '100%' }"
-        styleClass="p-card-shadow"
-      >
-        <p>
-          {{ uuid }}
-        </p>
-        <ng-template pTemplate="footer">
-          <p-button label="Save" icon="pi pi-check"></p-button>
-          <p-button
-            label="Cancel"
-            icon="pi pi-times"
-            styleClass="p-button-secondary"
-            [style]="{ 'margin-left': '.5em' }"
-          ></p-button>
-        </ng-template>
-      </p-card>
-    </div>
-    <div class="p-col-12 p-md-6 p-lg-3">B</div>
-    <div class="p-col-12 p-md-6 p-lg-3">C</div>
-    <div class="p-col-12 p-md-6 p-lg-3">D</div>
-  </div>
-
-  <div class="p-grid account--active">
-    <div class="p-col-12 p-md-6 p-lg-3">
-      <p-card
-        header="გიორგი წერეთელი"
-        subheader="მიმდინარე - GEO"
-        [style]="{ width: '100%' }"
-        styleClass="p-card-shadow"
-      >
-        <p>
-          {{ uuid }}
-        </p>
-        <ng-template pTemplate="footer">
-          <p-button label="Save" icon="pi pi-check"></p-button>
-          <p-button
-            label="Cancel"
-            icon="pi pi-times"
-            styleClass="p-button-secondary"
-            [style]="{ 'margin-left': '.5em' }"
-          ></p-button>
-        </ng-template>
-      </p-card>
-    </div>
-    <div class="p-col-12 p-md-6 p-lg-3">B</div>
-    <div class="p-col-12 p-md-6 p-lg-3">C</div>
-    <div class="p-col-12 p-md-6 p-lg-3">D</div>
-  </div>
+  <app-account-type-wrapper [accounts]="accounts"> </app-account-type-wrapper>
 </div>

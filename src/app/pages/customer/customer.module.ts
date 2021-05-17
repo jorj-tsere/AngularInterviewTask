@@ -29,6 +29,10 @@ import { CardModule } from 'primeng/card';
 import { CustomerAccountsResolverService } from './resolver/customer-accounts-resolver.service';
 import { CreateNewAccountFormComponent } from './components/create-new-account-form/create-new-account-form.component';
 import { MessagesModule } from 'primeng/messages';
+import { AccountTypeWrapperComponent } from './components/account-type-wrapper/account-type-wrapper.component';
+import { AccountTypeComponent } from './components/account-type/account-type.component';
+import {InputSwitchModule} from 'primeng/inputswitch';
+import { AccountCardComponent } from './components/account-card/account-card.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +41,9 @@ import { MessagesModule } from 'primeng/messages';
     CustomerDetailsWrapperComponent,
     CustomerAccountsComponent,
     CreateNewAccountFormComponent,
+    AccountTypeWrapperComponent,
+    AccountTypeComponent,
+    AccountCardComponent,
   ],
   imports: [
     CommonModule,
@@ -61,6 +68,7 @@ import { MessagesModule } from 'primeng/messages';
     DividerModule,
     SplitterModule,
     CardModule,
+    InputSwitchModule
   ],
   exports: [
     TableModule,
@@ -78,7 +86,8 @@ import { MessagesModule } from 'primeng/messages';
     DividerModule,
     SplitterModule,
     CardModule,
-    MessagesModule
+    MessagesModule,
+    InputSwitchModule
   ],
   providers: [
     MessageService,

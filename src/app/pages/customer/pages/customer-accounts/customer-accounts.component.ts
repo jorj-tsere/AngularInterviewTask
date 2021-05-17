@@ -5,7 +5,12 @@ import { Account, Lookups } from '@core/models';
 import { AccountService } from '@core/services/account.service';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '@store-barrel';
+import {
+  accountStatusSuccessfullyChanged,
+  accountSuccessfullyRemoved,
+} from '@store/actions/account.actions';
 import * as fromLookupSelectors from '@store/selectors/lookup.selectors';
+import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -25,7 +30,8 @@ export class CustomerAccountsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private store: Store<AppState>,
     private fb: FormBuilder,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private messageService: MessageService
   ) {
     this.customerId = this.route.parent?.snapshot.params.id;
     const accountsSubscription$: Subscription = this.route.data.subscribe(
@@ -34,6 +40,29 @@ export class CustomerAccountsComponent implements OnInit, OnDestroy {
       }
     );
     this.subcsriptions$.push(accountsSubscription$);
+
+    const accountDeleteSub$ = this.accountService
+      .listenAccountDeleteAction$()
+      .subscribe((accountId: number) => {
+        this.store.dispatch(accountSuccessfullyRemoved());
+        this.accounts = this.accounts.filter(
+          (account: Account) => account.id !== +accountId
+        );
+      });
+    this.subcsriptions$.push(accountDeleteSub$);
+
+    const accountStatusChangedSub$ = this.accountService
+      .listenAccountUpdates$()
+      .subscribe((updatedAccount: Account) => {
+        this.store.dispatch(accountStatusSuccessfullyChanged());
+        if (updatedAccount) {
+          const accountList = this.accounts.filter(
+            (account: Account) => account.id !== updatedAccount.id
+          );
+          this.accounts = [...accountList, updatedAccount];
+        }
+      });
+    this.subcsriptions$.push(accountStatusChangedSub$);
   }
 
   ngOnDestroy(): void {

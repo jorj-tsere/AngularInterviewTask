@@ -58,7 +58,7 @@ export class HttpResponseInterceptor implements HttpInterceptor {
         this.store.dispatch(logoutUser(true));
       }
 
-      if (httpResponse.body.showMessage) {
+      if (httpResponse.body && httpResponse.body.showMessage) {
         this.messageService.add({
           severity: 'error',
           summary: httpResponse.body.message,

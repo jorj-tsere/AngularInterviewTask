@@ -4,7 +4,11 @@ import { tap } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 import * as fromAuthActions from '@store/actions/auth.actions';
 import * as fromCustomer from '@store/actions/customer.actions';
-import { accountAlredyExists } from '@store/actions/account.actions';
+import {
+  accountAlredyExists,
+  accountStatusSuccessfullyChanged,
+  accountSuccessfullyRemoved,
+} from '@store/actions/account.actions';
 
 @Injectable()
 export class AlertEffects {
@@ -23,7 +27,7 @@ export class AlertEffects {
     { dispatch: false }
   );
 
-  accountAlredyExists$ =  createEffect(
+  accountAlredyExists$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(accountAlredyExists),
@@ -31,6 +35,36 @@ export class AlertEffects {
           this.messageService.add({
             severity: 'warn',
             summary: 'ანგარიში უკვე არსებობს!',
+            detail: 'Via MessageService',
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
+  accountRemovedSuccessfuly$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(accountSuccessfullyRemoved),
+        tap((action) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'ანგარიში წარმატებით წაიშალა!',
+            detail: 'Via MessageService',
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
+  accountStatusChagedSuccessfuly$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(accountStatusSuccessfullyChanged),
+        tap((action) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'ანგარიში სტატუსი წარმატებით შეიცვალა!',
             detail: 'Via MessageService',
           });
         })

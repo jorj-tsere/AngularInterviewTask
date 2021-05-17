@@ -34,10 +34,7 @@ export class CustomerListResolverService implements Resolve<any> {
       select(selectAllCustomers),
       tap((customers: Customer[]) => {
         if (!customers || !customers.length) {
-          console.warn('customers not found and dispatched');
           this.store.dispatch(loadCustomers());
-        } else {
-          console.warn('customers found and not dispatched', customers);
         }
       }),
       first()
