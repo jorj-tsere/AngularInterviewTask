@@ -8,6 +8,7 @@ import { AppState } from '@store-barrel';
 import {
   accountStatusSuccessfullyChanged,
   accountSuccessfullyRemoved,
+  createAccountSuccessfully,
 } from '@store/actions/account.actions';
 import * as fromLookupSelectors from '@store/selectors/lookup.selectors';
 import { MessageService } from 'primeng/api';
@@ -31,7 +32,6 @@ export class CustomerAccountsComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private fb: FormBuilder,
     private accountService: AccountService,
-    private messageService: MessageService
   ) {
     this.customerId = this.route.parent?.snapshot.params.id;
     const accountsSubscription$: Subscription = this.route.data.subscribe(
@@ -74,15 +74,11 @@ export class CustomerAccountsComponent implements OnInit, OnDestroy {
   }
 
   async addAccount(account: Account): Promise<void> {
-    const createResponse = await this.accountService
+    const accountResponse: Account = await this.accountService
       .createNewAccount(account)
       .toPromise();
-    if (createResponse) {
-      const response: Account[] = await this.accountService
-        .getAccountsByCustomerId(this.customerId)
-        .toPromise();
-      this.accounts = [...response];
-    }
+    this.accounts = [...this.accounts, accountResponse];
+    this.store.dispatch(createAccountSuccessfully());
   }
 
   ngOnInit(): void {

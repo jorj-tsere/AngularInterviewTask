@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { Account } from '@core/models';
 import { AccountService } from '@core/services/account.service';
+import { fadeInOut } from '@shared/animations/animations';
 import { AccountStatuses } from '@shared/enums/account-statuses.enum';
 import { ConfirmationService } from 'primeng/api';
 
@@ -13,10 +14,10 @@ import { ConfirmationService } from 'primeng/api';
   selector: 'app-account-card',
   templateUrl: './account-card.component.html',
   styleUrls: ['./account-card.component.scss'],
+  animations: [fadeInOut],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountCardComponent implements OnInit {
-  // @Input() classPlaceholder = '';
   @Input() account: Account;
   accountCopy: Account;
   constructor(

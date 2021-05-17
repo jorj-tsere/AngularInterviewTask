@@ -1,10 +1,13 @@
-<!-- <app-customer-details></app-customer-details> -->
-
-<!-- <p-divider type="dashed"></p-divider> -->
-
-<!-- <app-customer-accounts></app-customer-accounts> -->
-
-
+<a
+  pButton
+  routerLink="/customers/list"
+  style="text-decoration: none; display: inline-block; margin-bottom: 20px"
+  label="უკან დაბრუნება"
+  icon="pi pi-arrow-left"
+  class="p-button-text"
+></a>
 <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
-<br/><br/>
-<router-outlet></router-outlet>
+<br /><br />
+<div [@fadeInOut]="prepareRoute(outlet)">
+  <router-outlet #outlet='outlet'></router-outlet>
+</div>

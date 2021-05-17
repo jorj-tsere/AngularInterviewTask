@@ -12,7 +12,7 @@ server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 server.use(jsonServer.defaults());
 const SECRET_KEY = "132456789";
-const expiresIn = "30m";
+const expiresIn = "2h";
 
 // Create a token from a payload
 function createToken(payload) {
@@ -34,8 +34,6 @@ function isAuthenticated({ username, password }) {
     ) !== -1
   );
 }
-
-
 
 // Login to one of the users from ./users.json
 server.post("/api/auth/getAccessToken", (req, res) => {
@@ -90,7 +88,6 @@ server.use(/^(?!\/api\/auth).*$/, (req, res, next) => {
     verifyTokenResult = verifyToken(req.headers.authorization.split(" ")[1]);
 
     if (verifyTokenResult instanceof Error) {
-      // name: "TokenExpiredError"
       const errorDesc = verifyTokenResult.message;
       const response = {
         success: false,

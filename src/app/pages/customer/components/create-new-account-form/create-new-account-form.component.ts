@@ -8,6 +8,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { Account, ListObject, Lookups } from '@core/models';
 import { Store } from '@ngrx/store';
+import { AccountStatuses } from '@shared/enums/account-statuses.enum';
 import { AppState } from '@store-barrel';
 import { accountAlredyExists } from '@store/actions/account.actions';
 import { Observable } from 'rxjs';
@@ -33,7 +34,7 @@ export class CreateNewAccountFormComponent implements OnInit {
       accountType: [null, Validators.required],
       ccyId: [null, Validators.required],
       ccy: [null, Validators.required],
-      accountStatusID: [1, Validators.required],
+      accountStatusID: [AccountStatuses.ACTIVE, Validators.required],
       accountStatus: ['აქტიური', Validators.required],
     });
   }
@@ -67,9 +68,6 @@ export class CreateNewAccountFormComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  cancelAccountForm(): void {
-    this.newAccountForm.reset();
-  }
 
   checkAccountTypeIfAlreadyExists(newAccount: Account): boolean {
 

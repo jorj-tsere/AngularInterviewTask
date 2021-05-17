@@ -20,4 +20,8 @@ export const accountStatusSuccessfullyChanged = createAction(
   '[ Account Status Change ] Account status changed'
 );
 
+export const createAccountSuccessfully = createAction(
+  '[ Account create ] Account craete successfully'
+);
+
 

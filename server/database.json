@@ -203,16 +203,6 @@
       "customerId": "4",
       "accountTypeId": 1,
       "accountType": "მიმდინარე",
-      "ccyId": 2,
-      "ccy": "USD",
-      "accountStatusID": 2,
-      "accountStatus": "დახურული",
-      "id": 13
-    },
-    {
-      "customerId": "4",
-      "accountTypeId": 1,
-      "accountType": "მიმდინარე",
       "ccyId": 1,
       "ccy": "GEL",
       "accountStatusID": 1,
@@ -221,13 +211,33 @@
     },
     {
       "customerId": "4",
-      "accountTypeId": 1,
-      "accountType": "მიმდინარე",
+      "accountTypeId": 2,
+      "accountType": "შემნახველი",
       "ccyId": 3,
       "ccy": "EUR",
-      "accountStatusID": 2,
-      "accountStatus": "დახურული",
-      "id": 15
+      "accountStatusID": 1,
+      "accountStatus": "აქტიური",
+      "id": 16
+    },
+    {
+      "customerId": "4",
+      "accountTypeId": 3,
+      "accountType": "დაგროვებითი",
+      "ccyId": 1,
+      "ccy": "GEL",
+      "accountStatusID": 1,
+      "accountStatus": "აქტიური",
+      "id": 19
+    },
+    {
+      "customerId": "4",
+      "accountTypeId": 1,
+      "accountType": "მიმდინარე",
+      "ccyId": 4,
+      "ccy": "RUB",
+      "accountStatusID": 1,
+      "accountStatus": "აქტიური",
+      "id": 21
     }
   ]
 }

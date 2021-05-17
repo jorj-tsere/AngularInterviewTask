@@ -1,13 +1,12 @@
 <a
   pButton
   routerLink="/customers/list"
-  style="text-decoration: none"
+  style="text-decoration: none; display: inline-block;  margin-bottom: 20px;"
   label="უკან დაბრუნება"
   icon="pi pi-arrow-left"
   class="p-button-text"
+  *ngIf="!fromEditInterface"
 ></a>
-<br />
-<br /><br />
 <form [formGroup]="form" *ngIf="lookups" (submit)="submit()">
   <div class="p-fluid p-formgrid p-grid">
     <!-- სახელი -->

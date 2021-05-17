@@ -5,23 +5,10 @@ import { MenuItem, MegaMenuItem, MessageService } from 'primeng/api';
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
-  providers: [MessageService],
 })
 export class SidebarComponent implements OnInit {
   items: MegaMenuItem[] = [];
-  constructor(private messageService: MessageService) {}
-
-  update(): void {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Success',
-      detail: 'Data Updated',
-    });
-  }
-
-  delete(): void {
-    console.log('delete clicked');
-  }
+  constructor() {}
 
   ngOnInit(): void {
     this.items = [

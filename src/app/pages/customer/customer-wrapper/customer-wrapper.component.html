@@ -1,5 +1,5 @@
 <app-layout-wrapper>
-  <div id="users-page-cntent" class="content">
-    <router-outlet></router-outlet>
+  <div id="users-page-cntent"  [@fadeInOut]="prepareRoute(outlet)" class="content">
+    <router-outlet #outlet='outlet'></router-outlet>
   </div>
 </app-layout-wrapper>

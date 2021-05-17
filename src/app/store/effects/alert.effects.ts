@@ -8,6 +8,7 @@ import {
   accountAlredyExists,
   accountStatusSuccessfullyChanged,
   accountSuccessfullyRemoved,
+  createAccountSuccessfully,
 } from '@store/actions/account.actions';
 
 @Injectable()
@@ -65,6 +66,21 @@ export class AlertEffects {
           this.messageService.add({
             severity: 'success',
             summary: 'ანგარიში სტატუსი წარმატებით შეიცვალა!',
+            detail: 'Via MessageService',
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
+  createAccountSuccessfully$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(createAccountSuccessfully),
+        tap((action) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'ანგარიში წარმატებით დაემატა!',
             detail: 'Via MessageService',
           });
         })

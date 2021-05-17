@@ -4,7 +4,7 @@ import {} from 'primeng/';
 import { AppState } from '@store-barrel';
 import { select, Store } from '@ngrx/store';
 import { logoutUser } from '@store/actions/auth.actions';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { authViewModel } from '@store/selectors/auth.selectors';
 
 @Component({
@@ -14,10 +14,29 @@ import { authViewModel } from '@store/selectors/auth.selectors';
 })
 export class HeaderComponent implements OnInit {
   public items: MenuItem[] = [];
+  userModel: any;
   userModel$: Observable<any>;
+  subscriptions: Subscription[] = [];
 
   constructor(private store: Store<AppState>) {
-    this.userModel$ = this.store.pipe(select(authViewModel));
+    const sub = this.store.pipe(select(authViewModel)).subscribe((model) => {
+      this.userModel = model;
+      this.items = [
+        {
+          label: model.user?.username,
+          items: [
+            {
+              label: 'sign out',
+              icon: 'pi pi-sign-out',
+              command: () => {
+                this.logout();
+              },
+            },
+          ],
+        },
+      ];
+    });
+    this.subscriptions.push(sub);
   }
 
   logout(): void {
@@ -25,23 +44,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.items = [
-      {
-        label: 'user',
-        items: [{ label: 'Profile', icon: 'pi pi-fw pi-plus' }],
-      },
-      {
-        label: 'Quit',
-        items: [
-          {
-            label: 'sign out',
-            icon: 'pi pi-sign-out',
-            command: () => {
-              this.logout();
-            },
-          },
-        ],
-      },
-    ];
+
   }
 }
