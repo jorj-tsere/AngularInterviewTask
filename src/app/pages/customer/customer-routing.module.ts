@@ -3,10 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { CustomerDetailsResolverService } from '@core/resolvers/customer-details-resolver.service';
 import { CustomerListResolverService } from '@core/resolvers/customer-list-resolver.service';
 import { CustomerWrapperComponent } from './customer-wrapper/customer-wrapper.component';
-import { CreateCustomerComponent } from './pages/customer-details/customer-details.component';
+import { CustomerDetailsComponent } from './pages/customer-details/customer-details.component';
 import { CustomerDetailsWrapperComponent } from './pages/customer-details-wrapper/customer-details-wrapper.component';
 import { CustomerListComponent } from './pages/customer-list/customer-list.component';
 import { UpdateCustomerComponent } from './pages/update-customer/update-customer.component';
+import { CustomerAccountsComponent } from './pages/customer-accounts/customer-accounts.component';
 
 const routes: Routes = [
   {
@@ -23,12 +24,26 @@ const routes: Routes = [
       },
       {
         path: 'create',
-        component: CreateCustomerComponent,
+        component: CustomerDetailsComponent,
       },
       {
         path: 'edit/:id',
         component: CustomerDetailsWrapperComponent,
-        resolve: { myData: CustomerDetailsResolverService }
+        resolve: { customerDetailsData: CustomerDetailsResolverService },
+        children: [
+            {
+              path: 'details',
+              component: CustomerDetailsComponent,
+            },
+            {
+              path: '',
+              redirectTo: 'details',
+            },
+            {
+              path: 'accounts',
+              component: CustomerAccountsComponent,
+            },
+        ]
       },
     ],
   },

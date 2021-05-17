@@ -1,5 +1,5 @@
 import { CustomerWrapperComponent } from '../customer-wrapper/customer-wrapper.component';
-import { CreateCustomerComponent } from './customer-details/customer-details.component';
+import { CustomerDetailsComponent } from './customer-details/customer-details.component';
 import { CustomerListComponent } from './customer-list/customer-list.component';
 import { UpdateCustomerComponent } from './update-customer/update-customer.component';
 
@@ -8,4 +8,4 @@ import { UpdateCustomerComponent } from './update-customer/update-customer.compo
 // export * from './update-customer/update-customer.component';
 
 
-export const customerPageComponents = [CustomerWrapperComponent, CreateCustomerComponent, CustomerListComponent, UpdateCustomerComponent];
+export const customerPageComponents = [CustomerWrapperComponent, CustomerDetailsComponent, CustomerListComponent, UpdateCustomerComponent];

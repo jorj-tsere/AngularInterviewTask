@@ -22,7 +22,6 @@ import { CustomerListResolverService } from './resolvers/customer-list-resolver.
       multi: true,
     },
     AuthGuard,
-    CustomerListResolverService,
   ],
 })
 export class CoreModule {}

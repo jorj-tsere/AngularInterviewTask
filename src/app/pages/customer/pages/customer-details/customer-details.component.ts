@@ -35,12 +35,13 @@ import { filter, first, tap } from 'rxjs/operators';
   templateUrl: './customer-details.component.html',
   styleUrls: ['./customer-details.component.scss'],
 })
-export class CreateCustomerComponent implements OnInit {
+export class CustomerDetailsComponent implements OnInit {
   public form: FormGroup;
   public lookups: Lookups;
   public equalAddresses = false;
   public submitted = false;
   customer$: Observable<any>;
+  customer: Customer;
   fromEditInterface = false;
   customerId: number;
   addressFormTypes: typeof addressFormTypes = addressFormTypes;
@@ -53,10 +54,13 @@ export class CreateCustomerComponent implements OnInit {
     private router: Router
   ) {
     this.fromEditInterface = this.router.url.indexOf('/edit') !== -1;
-    this.customerId = this.route.snapshot.params.id;
-    this.customer$ = this.store.pipe(
-      select(selectEntity, { id: this.customerId })
-    );
+    this.customerId = this.route.parent?.snapshot.params.id;
+    console.log('this.route.parent?.snapshot', this.route.parent?.snapshot);
+
+    // customerDetailsData
+    // this.customer$ = this.store.pipe(
+    //   select(selectEntity, { id: this.customerId })
+    // );
     this.form = this.fb.group({
       firstName: [
         null,
@@ -97,48 +101,37 @@ export class CreateCustomerComponent implements OnInit {
       customerImage: [null],
     });
 
-    if (this.fromEditInterface) {
+
+    this.route.parent?.data.subscribe((data) => {
+      this.customer = data.customerDetailsData;
       this.setValues();
-    }
+    });
   }
 
   setValues(): void {
-    //     actualAddress:
-    // address: "isani"
-    // city: "tbilisi"
-    // country: "georgia"
-    // gender: "male"
-    // id: 4
-    // legalAddress:
-    // address: "isani"
-    // city: "tbilisi"
-    // country: "georgia"
-
-    this.customer$.subscribe((customer: Customer) => {
-      this.firstName.setValue(customer.firstName);
-      this.lastName.setValue(customer.lastName);
-      this.customerImage.setValue(customer.customerImage);
-      this.genderId.setValue(+customer.genderId);
-      this.personalNumber.setValue(customer.personalNumber);
-      this.phone.setValue(customer.phone);
+      this.firstName.setValue(this.customer.firstName);
+      this.lastName.setValue(this.customer.lastName);
+      this.customerImage.setValue(this.customer.customerImage);
+      this.genderId.setValue(+this.customer.genderId);
+      this.personalNumber.setValue(this.customer.personalNumber);
+      this.phone.setValue(this.customer.phone);
       // set Legal Address
       this.legalAddress.controls.address.setValue(
-        customer.legalAddress.address
+        this.customer.legalAddress.address
       );
       this.legalAddress.controls.country.setValue(
-        customer.legalAddress.country
+        this.customer.legalAddress.country
       );
-      this.legalAddress.controls.city.setValue(customer.legalAddress.city);
+      this.legalAddress.controls.city.setValue(this.customer.legalAddress.city);
       // set Actual Address
       this.actualAddress.controls.address.setValue(
-        customer.actualAddress.address
+        this.customer.actualAddress.address
       );
       this.actualAddress.controls.country.setValue(
-        customer.actualAddress.country
+        this.customer.actualAddress.country
       );
-      this.actualAddress.controls.city.setValue(customer.actualAddress.city);
-      console.log();
-    });
+      this.actualAddress.controls.city.setValue(this.customer.actualAddress.city);
+
   }
 
   ngOnInit(): void {

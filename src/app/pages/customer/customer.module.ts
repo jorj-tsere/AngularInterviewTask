@@ -6,7 +6,6 @@ import { customerPageComponents } from './pages';
 import { SharedModule } from '@shared/shared.module';
 import { MessageModule } from 'primeng/message';
 import { ConfirmationService, MessageService } from 'primeng/api';
-
 import { TableModule } from 'primeng/table';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { ButtonModule } from 'primeng/button';
@@ -16,24 +15,25 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FieldsetModule } from 'primeng/fieldset';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
-import {FileUploadModule} from 'primeng/fileupload';
-import {InputNumberModule} from 'primeng/inputnumber';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { AddressFormComponent } from './components/address-form/address-form.component';
-import {TabMenuModule} from 'primeng/tabmenu';
-import {MenuItem} from 'primeng/api';
+import { TabMenuModule } from 'primeng/tabmenu';
 import { TooltipModule } from 'primeng/tooltip';
-
-import {ConfirmPopupModule} from 'primeng/confirmpopup';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { CustomerDetailsWrapperComponent } from './pages/customer-details-wrapper/customer-details-wrapper.component';
-import { CustomerDetailsResolverService } from '@core/resolvers/customer-details-resolver.service';
-import {DividerModule} from 'primeng/divider';
+import { DividerModule } from 'primeng/divider';
 import { CustomerAccountsComponent } from './pages/customer-accounts/customer-accounts.component';
-import {SplitterModule} from 'primeng/splitter';
-import {CardModule} from 'primeng/card';
-
+import { SplitterModule } from 'primeng/splitter';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
-  declarations: [...customerPageComponents, AddressFormComponent, CustomerDetailsWrapperComponent, CustomerAccountsComponent],
+  declarations: [
+    ...customerPageComponents,
+    AddressFormComponent,
+    CustomerDetailsWrapperComponent,
+    CustomerAccountsComponent
+  ],
   imports: [
     CommonModule,
     CustomerRoutingModule,
@@ -55,7 +55,7 @@ import {CardModule} from 'primeng/card';
     ConfirmPopupModule,
     DividerModule,
     SplitterModule,
-    CardModule
+    CardModule,
   ],
   exports: [
     TableModule,
@@ -72,8 +72,8 @@ import {CardModule} from 'primeng/card';
     ConfirmPopupModule,
     DividerModule,
     SplitterModule,
-    CardModule
+    CardModule,
   ],
-  providers: [MessageService, ConfirmationService ],
+  providers: [MessageService, ConfirmationService],
 })
 export class CustomerModule {}
