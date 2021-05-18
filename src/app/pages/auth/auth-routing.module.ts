@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AlreadyLoggedGuard } from '@core/guards/already-logged.guard';
 import { AuthWrapperComponent } from './auth-wrapper/auth-wrapper.component';
 import { LoginComponent } from './components';
 

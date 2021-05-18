@@ -99,11 +99,14 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
 
     this.route.parent?.data.subscribe((data) => {
       this.customer = data.customerDetailsData;
-      this.setValues();
+      if (this.fromEditInterface && this.customer) {
+        this.setValues();
+      }
     });
   }
 
   setValues(): void {
+    console.log();
     this.firstName.setValue(this.customer.firstName);
     this.lastName.setValue(this.customer.lastName);
     this.customerImage.setValue(this.customer.customerImage);

@@ -120,6 +120,21 @@ export class AlertEffects {
     { dispatch: false }
   );
 
+  updateCustomerSuccessMsg$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(fromCustomer.updateCustomerSuccess),
+        tap(() => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'კლიენტი მონაცემები წარმატებით განახლდა!',
+            detail: 'Via MessageService',
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
   removeCustomerSuccessMsg$ = createEffect(
     () =>
       this.actions$.pipe(

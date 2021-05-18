@@ -28,7 +28,6 @@ export class AccountTypeWrapperComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.accounts && changes.accounts.currentValue) {
-      console.warn(changes.accounts.currentValue);
       this.accountsCurrent = this.filterAccountsByAccountType(
         AccountTypes.CURRENT,
         changes.accounts.currentValue

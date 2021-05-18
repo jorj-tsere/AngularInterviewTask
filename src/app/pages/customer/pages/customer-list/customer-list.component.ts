@@ -77,7 +77,6 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     const sub$ = this.store
       .pipe(select(selectAllCustomers))
       .subscribe((values) => {
-        console.log('values', values);
         this.customers = values;
       });
     this.subscriptions$.push(sub$);
